@@ -1,0 +1,16 @@
+.DS_Store
+recentf
+network-security.data
+smex-items
+ido.last
+
+auto-save-list/*
+
+backup/*
+!.keep
+
+cache/*
+!.keep
+
+elpa/*
+
