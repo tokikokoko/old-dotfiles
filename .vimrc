@@ -33,7 +33,6 @@ set wildmode=list:longest
 
 " vim-plug
 call plug#begin('~/.vim/plugged')
-Plug 'dracula/vim'
-Plug 'hynek/vim-python-pep8-indent'
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle'] }
+Plug 'jistr/vim-nerdtree-tabs'
 call plug#end()

@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (counsel swiper fish-mode use-package smex slime package-utils moe-theme indent-guide ido-vertical-mode ido-ubiquitous company))))
+    (indent-guide moe-theme slime counsel ivy-rich swiper company fish-mode use-package package-utils))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

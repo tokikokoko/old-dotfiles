@@ -19,8 +19,6 @@
 (prefer-coding-system 'utf-8-unix)
 
 ;; UI設定
-;;; themeを設定
-;; (load-theme 'zenburn t)
 ;;; font設定
 (when (eq system-type 'windows-nt)
   (set-default-font "M+ 1M light 11"))
@@ -29,7 +27,8 @@
 ;;; メニューバーを消す
 (menu-bar-mode -1)
 ;;; ツールバーを消す
-;;;(tool-bar-mode -1)
+(when window-system
+  (tool-bar-mode -1))
 ;;; カーソルの点滅を止める
 (blink-cursor-mode 0)
 ;;; 対応する括弧を強調
