@@ -37,5 +37,8 @@ function kill_server() {
 
 # shell relogin
 function relogin(){
+    echo '---------------------------'
+    echo '------- new session -------'
+    echo '---------------------------'
     exec $SHELL -l
 }
