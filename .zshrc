@@ -11,8 +11,8 @@ zplug load --verbose
 
 ### prompt ###
 setopt prompt_subst
-PROMPT='%F{blue}${USER}@${HOST} %F{yellow}%~
-%F{cyan}|><>%F{white}'
+PROMPT="%F{blue}${USER}@${HOST} %F{yellow}%~
+%F{cyan}|><-'> %F{white}"
 
 ### vim ###
 # vim path
