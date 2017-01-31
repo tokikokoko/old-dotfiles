@@ -24,6 +24,8 @@
   (set-default-font "M+ 1M light 11"))
 (when (eq system-type 'darwin)
   (set-default-font "M+ 1mn light 12"))
+(when (eq system-type 'gnu/linux)
+  (set-default-font "M+ 1mn 10"))
 ;;; メニューバーを消す
 (menu-bar-mode -1)
 ;;; ツールバーを消す
