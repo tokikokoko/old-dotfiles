@@ -1,19 +1,18 @@
 ### zplug ###
-# init zplug
+# init
 source ~/.zplug/init.zsh
-# plugins
-zplug "chrissicool/zsh-256color"
-zplug "Tarrasch/zsh-colors"
-zplug "zsh-users/zsh-syntax-highlighting"
-zplug "ascii-soup/zsh-url-highlighter"
-zplug "voronkovich/mysql.plugin.zsh"
-zplug "marzocchi/zsh-notify"
-zplug "sindresorhus/pretty-time-zsh"
+# define plugins
+zplug 'zsh-users/zsh-autosuggestions'
+zplug 'zsh-users/zsh-completions'
+zplug 'chrissicool/zsh-256color'
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
 # load plugins
 zplug load --verbose
 
-### PATH ###
-export PATH="$PATH:/usr/local/bin:/usr/bin"
+### prompt ###
+setopt prompt_subst
+PROMPT='%F{blue}${USER}@${HOST} %F{yellow}%~
+%F{cyan}><> '
 
 ### vim ###
 # vim path
