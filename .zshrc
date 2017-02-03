@@ -14,6 +14,31 @@ setopt prompt_subst
 PROMPT="%F{blue}${USER}@${HOST} %F{yellow}%~
 %F{cyan}|><-'> %F{white}"
 
+### virtualenv ###
+VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
+export WORKON_HOME=~/.virtualenvs
+
+### compinit ###
+autoload -U compinit
+compinit
+zstyle ':completion:"default' menu select=2
+# improve compinit view
+zstyle ':completion:*' verbose yes
+zstyle ':completion:*' completer _expand _complete _match _prefix _approximate _list _history
+zstyle ':completion:*:messages' format '%F{YELLOW}%d'$DEFAULT
+zstyle ':completion:*:warnings' format '%F{RED}No matches for:''%F{YELLOW} %d'$DEFAULT
+# group compinit candidate
+zstyle ':completion:*' group-name ''
+# separate candidate
+zstyle ':completion:*' list-separator '-->'
+zstyle ':completion:*:manuals' separate-sections true
+
+### alias ###
+alias la='ls -a'
+alias ll='ls -l'
+alias lal='ls -al'
+
 ### vim ###
 # vim path
 alias vim='mvim'
