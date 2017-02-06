@@ -14,6 +14,8 @@
     swiper ivy-rich
     ;;; counsel
     counsel
+    ;;; flycheck
+    flycheck
     ;;; slime
     slime
     ;;; moe-theme

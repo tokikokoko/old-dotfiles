@@ -42,13 +42,21 @@
 (set-face-attribute 'company-scrollbar-bg nil
                     :background "gray40")
 
+;; flycheck
+(require 'flycheck)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(define-key global-map (kbd "\C-cn") 'flycheck-next-error)
+(define-key global-map (kbd "\C-cp") 'flycheck-previous-error)
+(define-key global-map (kbd "\C-cd") 'flycheck-list-errors)
+
 ;; slime
 ;;;SBCLをデフォルトのCommon Lisp処理系に設定
 (setq inferior-lisp-program "sbcl")
 ;;;SLIMEのロード
 (slime-setup '(slime-repl slime-fancy slime-banner))
 
-;; indent-guide
-(setq indent-guide-delay 0.1)
-(setq indent-guide-recursive t)
-(add-hook 'prog-mode-hook 'indent-guide-mode)
+;;; highlight-idnent
+(require 'highlight-indentation)
+(set-face-background 'highlight-indentation-face "#0000ff")
+(set-face-background 'highlight-indentation-current-column-face "#ff0000")
+

@@ -11,6 +11,14 @@
 		   "~/.emacs.d/config"
 		   )
                  load-path))
+
+;;; elisp配下のディレクトリをロードパスに一括追加
+(let ((default-directory (expand-file-name "~/.emacs.d/elisp")))
+  (add-to-list 'load-path default-directory)
+  (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+      (normal-top-level-add-subdirs-to-load-path)))
+
+;;; packagelist.elを読み込み
 (load "~/.emacs.d/config/packagelist")
 
 ;;; Localeを日本語に
@@ -35,6 +43,8 @@
 (blink-cursor-mode 0)
 ;;; 対応する括弧を強調
 (show-paren-mode 1)
+;;; 閉じ括弧の自動挿入有効化
+(electric-pair-mode 1)
 ;;; ウィンドウ内に収まらないときだけ括弧内も強調
 (setq show-paren-style 'mixed)
 ;;; 行番号を表示
