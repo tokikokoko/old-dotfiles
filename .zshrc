@@ -35,9 +35,10 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
 ### alias ###
-alias la='ls -a'
-alias ll='ls -l'
-alias lal='ls -al'
+alias ls='ls -Gf'
+alias la='ls -Gfa'
+alias ll='ls -Gfl'
+alias lal='ls -Gfal'
 
 ### vim ###
 # vim path
