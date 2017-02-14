@@ -14,10 +14,13 @@ setopt prompt_subst
 PROMPT="%F{blue}${USER}@${HOST} %F{yellow}%~
 %F{cyan}|><-'> %F{white}"
 
+### golang ###
+path=(/usr/local/go/bin(N-/) $path)
+
 ### virtualenv ###
-VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-export WORKON_HOME=~/.virtualenvs
+# VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+# source /usr/local/bin/virtualenvwrapper.sh
+# export WORKON_HOME=~/.virtualenvs
 
 ### compinit ###
 autoload -U compinit
@@ -35,7 +38,7 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
 ### alias ###
-alias ls='ls -Gf'
+alias ls='ls -G1'
 alias la='ls -Gfa'
 alias ll='ls -Gfl'
 alias lal='ls -Gfal'
@@ -48,6 +51,9 @@ alias vim='mvim'
 # emacs functions
 # alias
 alias em='emacsclient -nw'
+
+### fzf ###
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ### functions ###
 # emacs restart-server
