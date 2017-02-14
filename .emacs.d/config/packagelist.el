@@ -8,6 +8,8 @@
     fish-mode
     ;;; indent-guide
     indent-guide
+    ;;; go-mode
+    go-mode
     ;;; company
     company
     ;;; ivy-mode
