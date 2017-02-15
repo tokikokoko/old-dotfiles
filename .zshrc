@@ -18,9 +18,9 @@ PROMPT="%F{blue}${USER}@${HOST} %F{yellow}%~
 path=(/usr/local/go/bin(N-/) $path)
 
 ### virtualenv ###
-# VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-# source /usr/local/bin/virtualenvwrapper.sh
-# export WORKON_HOME=~/.virtualenvs
+VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
+source /usr/local/bin/virtualenvwrapper.sh
+export WORKON_HOME=~/.virtualenvs
 
 ### compinit ###
 autoload -U compinit
