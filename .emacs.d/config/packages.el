@@ -3,8 +3,7 @@
 (require 'bind-key)
 
 ;; theme
-(require 'moe-theme)
-(moe-dark)
+(load-theme 'leuven t)
 
 ;; ivy
 (require 'ivy)
@@ -49,7 +48,16 @@
 (define-key global-map (kbd "\C-cp") 'flycheck-previous-error)
 (define-key global-map (kbd "\C-cd") 'flycheck-list-errors)
 
-;; slime
+;; python
+;;; Elpy
+(elpy-enable)
+;;; virtualenvのパス
+(defvar venv-default "~/.virtualenvs/default")
+;;; デフォルト環境を有効化
+(pyvenv-activate venv-default)
+
+;; lisp
+;;; slime
 ;;;SBCLをデフォルトのCommon Lisp処理系に設定
 (setq inferior-lisp-program "sbcl")
 ;;;SLIMEのロード

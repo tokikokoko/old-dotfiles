@@ -18,10 +18,14 @@
     counsel
     ;;; flycheck
     flycheck
+    ;;; python env
+    elpy
     ;;; slime
     slime
     ;;; moe-theme
     moe-theme
+    ;;; leuven
+    leuven-theme
     ))
 
 (defun package-install-all ()
