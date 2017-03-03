@@ -9,6 +9,12 @@ zplug "zsh-users/zsh-syntax-highlighting", defer:2
 # load plugins
 zplug load --verbose
 
+### DOTFILES ###
+DOT=~/dotfiles
+
+### TERM ###
+TERM=xterm-256color
+
 ### prompt ###
 setopt prompt_subst
 PROMPT="%F{blue}${USER}@${HOST} %F{yellow}%~
@@ -45,7 +51,7 @@ alias lal='ls -Gfal'
 
 ### vim ###
 # vim path
-alias vim='mvim'
+alias vim='nvim'
 
 ### emacs ###
 # emacs functions
@@ -73,4 +79,10 @@ function relogin(){
     echo '------- new session -------'
     echo '---------------------------'
     exec $SHELL -l
+}
+
+# test function
+function testfunc(){
+	echo "test"
+	echo "test"
 }
