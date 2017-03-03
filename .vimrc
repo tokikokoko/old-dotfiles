@@ -35,4 +35,5 @@ set wildmode=list:longest
 call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle'] }
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
