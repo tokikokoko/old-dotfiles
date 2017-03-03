@@ -4,7 +4,6 @@ network-security.data
 smex-items
 ido.last
 bookmarks
-url
 custom.el
 
 auto-save-list/*
@@ -18,3 +17,5 @@ cache/*
 elpa/*
 
 eshell/*
+
+url/*
