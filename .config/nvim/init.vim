@@ -5,19 +5,34 @@ set nocompatible
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-plug - vim plugin manager
+" https://github.com/junegunn/vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'junegunn/seoul256.vim'
+Plug 'jonathanfilip/vim-lucius'
 Plug 'kassio/neoterm'
 call plug#end()
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => keymap
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Go to normal mode with <ESC> on terminal mode
 tnoremap <Esc> <C-\><C-n>
+" mappings when IM is Japanese
+nnoremap あ a
+nnoremap い i
+nnoremap う u
+nnoremap お o
+nnoremap っd dd
+nnoremap っy yy
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" setting
+" => setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" シンタックス有効化
 syntax on
-" 文字コードをUTF-8に設定
+" 文字コードをUTF-9に設定
 set fenc=utf-8
 " バックアップファイルを作らない
 set nobackup
@@ -33,9 +48,12 @@ set showcmd
 set clipboard=unnamed
 " キーマッピングとキーコードの遅延設定
 set timeout timeoutlen=1000 ttimeoutlen=10
-" Appearance
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Appearance
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " テーマ
-colorscheme PaperColor
+colorscheme lucius
+set background=dark
 " 行番号を表示
 set number
 " 現在の行を強調表示
