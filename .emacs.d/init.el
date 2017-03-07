@@ -1,4 +1,7 @@
-;; package.el
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> package.el
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-initialize)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -17,16 +20,12 @@
   (add-to-list 'load-path default-directory)
   (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
       (normal-top-level-add-subdirs-to-load-path)))
-
 ;;; packagelist.elを読み込み
 (load "~/.emacs.d/config/packagelist")
 
-;;; Localeを日本語に
-(set-language-environment "Japanese")
-;;; 日本語入力
-(prefer-coding-system 'utf-8-unix)
-
-;; UI設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> user interface settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; font設定
 (when (eq system-type 'windows-nt)
   (set-default-font "M+ 1mn light 11"))
@@ -52,7 +51,13 @@
 ;;; スタートアップページを表示しない
 (setq inhibit-startup-message t)
 
-;; 動作設定
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> general settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Localeを日本語に
+(set-language-environment "Japanese")
+;;; 日本語入力
+(prefer-coding-system 'utf-8-unix)
 ;;; 最近開いたファイル
 (recentf-mode 1)
 ;;; バックアップファイルを作らない
@@ -69,6 +74,9 @@
 ;; Avoid to write `package-selected-packages` in init.el
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> other
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; 標準Elispの設定
 (load "~/.emacs.d/config/builtins")
 ;;; 非標準Elispの設定

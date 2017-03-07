@@ -1,17 +1,22 @@
-;; use-package
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> use-package
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'use-package)
 (require 'bind-key)
 
-;; theme
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> theme
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-theme 'leuven t)
 
-;; ivy
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> ivy
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'ivy)
-
 ;; ivy-rich
 (require 'ivy-rich)
 (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
-
 ;; swiper
 (global-set-key "\C-s" 'swiper)
 (global-set-key (kbd "C-c C-r") 'ivy-resume)
@@ -20,12 +25,14 @@
 (global-set-key (kbd "C-x C-f") 'counsel-find-file)
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 
-;; company
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> company
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-company-mode +1)
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 2)
 (setq company-selection-wrap-around t)
-;;; 色設定
+;;; color settings
 (set-face-attribute 'company-tooltip nil
                     :foreground "black" :background "lightgrey")
 (set-face-attribute 'company-tooltip-common nil
@@ -40,15 +47,18 @@
                     :background "orange")
 (set-face-attribute 'company-scrollbar-bg nil
                     :background "gray40")
-
-;; flycheck
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> flycheck
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (define-key global-map (kbd "\C-cn") 'flycheck-next-error)
 (define-key global-map (kbd "\C-cp") 'flycheck-previous-error)
 (define-key global-map (kbd "\C-cd") 'flycheck-list-errors)
 
-;; python
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> python
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; Elpy
 (elpy-enable)
 ;;; virtualenvのパス
@@ -56,15 +66,18 @@
 ;;; デフォルト環境を有効化
 (pyvenv-activate venv-default)
 
-;; lisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; -> lisp
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; slime
 ;;;SBCLをデフォルトのCommon Lisp処理系に設定
 (setq inferior-lisp-program "sbcl")
 ;;;SLIMEのロード
 (slime-setup '(slime-repl slime-fancy slime-banner))
 
-;;; highlight-idnent
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; -> highlight-idnent
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'highlight-indentation)
 (set-face-background 'highlight-indentation-face "#0000ff")
 (set-face-background 'highlight-indentation-current-column-face "#ff0000")
-

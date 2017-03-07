@@ -1,3 +1,5 @@
+
+;;; packagelists
 (defvar my/favorite-packages
   '(
     ;;; package-utils
@@ -28,6 +30,7 @@
     leuven-theme
     ))
 
+;;; [function]install all packages from my/favorite-packages
 (defun package-install-all ()
   (interactive)
   (package-refresh-contents)
