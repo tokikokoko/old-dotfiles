@@ -2,7 +2,6 @@
 " => important setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vim-plug - vim plugin manager
 " https://github.com/junegunn/vim-plug
@@ -13,7 +12,6 @@ Plug 'junegunn/seoul256.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kassio/neoterm'
 call plug#end()
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => keymap
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -26,7 +24,6 @@ nnoremap う u
 nnoremap お o
 nnoremap っd dd
 nnoremap っy yy
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
