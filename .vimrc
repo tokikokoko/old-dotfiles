@@ -14,6 +14,8 @@ set hidden
 set showcmd
 " vimの無名レジスタとOSクリップボードの連携
 set clipboard=unnamed
+" fzf
+set rtp+=~/.fzf
 
 " Appearance
 " 行番号を表示
@@ -36,4 +38,5 @@ call plug#begin('~/.vim/plugged')
 Plug 'scrooloose/nerdtree', { 'on':  ['NERDTreeToggle'] }
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'NLKNguyen/papercolor-theme'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 call plug#end()
