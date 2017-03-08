@@ -26,8 +26,8 @@
     slime
     ;;; moe-theme
     moe-theme
-    ;;; leuven
-    leuven-theme
+    ;;; zenburn
+    zenburn-theme
     ))
 
 ;;; [function]install all packages from my/favorite-packages
