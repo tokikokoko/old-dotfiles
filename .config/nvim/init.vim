@@ -11,6 +11,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/seoul256.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kassio/neoterm'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => keymap
