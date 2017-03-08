@@ -48,6 +48,7 @@ alias ls='ls -G1'
 alias la='ls -Gfa'
 alias ll='ls -Gfl'
 alias lal='ls -Gfal'
+alias diff='colordiff'
 
 ### vim ###
 # vim path
