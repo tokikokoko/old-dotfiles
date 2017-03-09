@@ -1,13 +1,13 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> package.el
+;;-> package.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-initialize)
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
         ("org" . "http://orgmode.org/elpa/")))
-;;; ロードパスの追加
+;; ロードパスの追加
 (setq load-path (append
                  '(
 		   "~/.emacs.d/lisp",
@@ -15,56 +15,60 @@
 		   )
                  load-path))
 
-;;; elisp配下のディレクトリをロードパスに一括追加
+;; elisp配下のディレクトリをロードパスに一括追加
 (let ((default-directory (expand-file-name "~/.emacs.d/elisp")))
   (add-to-list 'load-path default-directory)
   (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
       (normal-top-level-add-subdirs-to-load-path)))
-;;; packagelist.elを読み込み
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;-> Packagelist.el
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; packagelist.elを読み込み
 (load "~/.emacs.d/config/packagelist")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> user interface settings
+;;-> User interface settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; font設定
+;; font設定
 (when (eq system-type 'windows-nt)
   (set-default-font "M+ 1mn light 11"))
 (when (eq system-type 'darwin)
   (set-default-font "M+ 1mn light 12"))
 (when (eq system-type 'gnu/linux)
   (set-default-font "M+ 1mn light 10"))
-;;; メニューバーを消す
+;; メニューバーを消す
 (menu-bar-mode -1)
-;;; ツールバーを消す
+;; ツールバーを消す
 (when window-system
   (tool-bar-mode -1))
-;;; カーソルの点滅を止める
+;; カーソルの点滅を止める
 (blink-cursor-mode 0)
-;;; 対応する括弧を強調
+;; 対応する括弧を強調
 (show-paren-mode 1)
-;;; 閉じ括弧の自動挿入有効化
+;; 閉じ括弧の自動挿入有効化
 (electric-pair-mode 1)
-;;; ウィンドウ内に収まらないときだけ括弧内も強調
+;; ウィンドウ内に収まらないときだけ括弧内も強調
 (setq show-paren-style 'mixed)
-;;; 行番号を表示
+;; 行番号を表示
 (global-linum-mode t)
-;;; スタートアップページを表示しない
+;; スタートアップページを表示しない
 (setq inhibit-startup-message t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> general settings
+;;-> General settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Localeを日本語に
+;; Localeを日本語に
 (set-language-environment "Japanese")
-;;; 日本語入力
+;; 日本語入力
 (prefer-coding-system 'utf-8-unix)
-;;; 最近開いたファイル
+;; 最近開いたファイル
 (recentf-mode 1)
-;;; バックアップファイルを作らない
+;; バックアップファイルを作らない
 (setq backup-inhibited t)
-;;; 終了時にオートセーブファイルを消す
+;; 終了時にオートセーブファイルを消す
 (setq delete-auto-save-files t)
-;;; backupの保存先
+;; backupの保存先
 (setq backup-directory-alist
       (cons (cons ".*" (expand-file-name "~/.emacs.d/backup"))
 	    backup-directory-alist))
@@ -75,9 +79,17 @@
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> other
+;;-> Default plugins
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; 標準Elispの設定
+;; 標準Elispの設定
 (load "~/.emacs.d/config/builtins")
-;;; 非標準Elispの設定
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;-> External plugins
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; 非標準Elispの設定
 (load "~/.emacs.d/config/packages")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;-> Writing settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
