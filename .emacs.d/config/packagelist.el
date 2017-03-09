@@ -1,36 +1,36 @@
 
-;;; packagelists
+;; packagelists
 (defvar my/favorite-packages
   '(
-    ;;; package-utils
+    ;; package-utils
     package-utils
-    ;;; use-package
+    ;; use-package
     use-package
-    ;;; fish-shell-mode
+    ;; fish-shell-mode
     fish-mode
-    ;;; indent-guide
+    ;; indent-guide
     indent-guide
-    ;;; go-mode
+    ;; go-mode
     go-mode
-    ;;; company
+    ;; company
     company
-    ;;; ivy-mode
+    ;; ivy-mode
     swiper ivy-rich
-    ;;; counsel
+    ;; counsel
     counsel
-    ;;; flycheck
+    ;; flycheck
     flycheck
-    ;;; python env
+    ;; python env
     elpy
-    ;;; slime
+    ;; slime
     slime
-    ;;; moe-theme
+    ;; moe-theme
     moe-theme
-    ;;; zenburn
+    ;; zenburn
     zenburn-theme
     ))
 
-;;; [function]install all packages from my/favorite-packages
+;; [function]install all packages from my/favorite-packages
 (defun package-install-all ()
   (interactive)
   (package-refresh-contents)

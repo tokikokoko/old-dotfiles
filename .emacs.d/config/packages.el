@@ -1,17 +1,17 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> use-package
+;;-> use-package
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'use-package)
 (require 'bind-key)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> theme
+;;-> theme
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-theme 'zenburn t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> ivy
+;;-> ivy
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'ivy)
 ;; ivy-rich
@@ -26,13 +26,13 @@
 (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> company
+;;-> company
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (global-company-mode +1)
 (setq company-idle-delay 0)
 (setq company-minimum-prefix-length 2)
 (setq company-selection-wrap-around t)
-;;; color settings
+;; color settings
 (set-face-attribute 'company-tooltip nil
                     :foreground "black" :background "lightgrey")
 (set-face-attribute 'company-tooltip-common nil
@@ -48,7 +48,7 @@
 (set-face-attribute 'company-scrollbar-bg nil
                     :background "gray40")
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> flycheck
+;;-> flycheck
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
@@ -57,39 +57,39 @@
 (define-key global-map (kbd "\C-cd") 'flycheck-list-errors)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> python
+;;-> python
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; Elpy
+;; Elpy
 (elpy-enable)
-;;; virtualenvのパス
+;; virtualenvのパス
 (defvar venv-default "~/.virtualenvs/default")
-;;; デフォルト環境を有効化
+;; デフォルト環境を有効化
 (pyvenv-activate venv-default)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> lisp
+;;-> lisp
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; slime
-;;;SBCLをデフォルトのCommon Lisp処理系に設定
+;; slime
+;;SBCLをデフォルトのCommon Lisp処理系に設定
 (setq inferior-lisp-program "sbcl")
-;;;SLIMEのロード
+;;SLIMEのロード
 (slime-setup '(slime-repl slime-fancy slime-banner))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> web-mode
+;;-> web-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'web-mode)
-;;; emacs 23以下の互換
+;; emacs 23以下の互換
 (when (< emacs-major-version 24)
   (defalias 'prog-mode 'fundamental-mode))
-;;; 適用する拡張子
+;; 適用する拡張子
 (add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
 (add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
 (add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
 (add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
 (add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
 (add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
-;;; インデント数
+;; インデント数
 (defun web-mode-hook ()
   "Hooks for Web mode."
   (setq web-mode-html-offset   2)
@@ -101,7 +101,7 @@
 (add-hook 'web-mode-hook 'web-mode-hook)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; -> highlight-idnent
+;;-> highlight-idnent
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'highlight-indentation)
 (set-face-background 'highlight-indentation-face "#00aa00")

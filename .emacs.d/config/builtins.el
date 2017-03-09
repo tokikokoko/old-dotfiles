@@ -1,9 +1,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; -> dired
+;;-> dired
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;; diredを便利にする
+;; diredを便利にする
 (require 'dired-x)
-;;; diredで日本語ファイル名出力
+;; diredで日本語ファイル名出力
 (setq default-coding-system 'shift_jis)
 
