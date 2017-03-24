@@ -28,6 +28,9 @@ VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
 source /usr/local/bin/virtualenvwrapper.sh
 export WORKON_HOME=~/.virtualenvs
 
+### local settings ###
+source $HOME/.zshlocal
+
 ### compinit ###
 autoload -U compinit
 compinit
