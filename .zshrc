@@ -24,12 +24,13 @@ PROMPT="%F{blue}${USER}@${HOST} %F{yellow}%~
 path=(/usr/local/go/bin(N-/) $path)
 
 ### virtualenv ###
-VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python3
-source /usr/local/bin/virtualenvwrapper.sh
-export WORKON_HOME=~/.virtualenvs
-
-### local settings ###
-source $HOME/.zshlocal
+# 環境変数VIRTUALENVRAPPER_PYTHONに使用するPythonのパスを記述
+# virtualenvwrapper.shのパスを調べ最後に実行する
+# 以下設定例 
+# VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+# export WORKON_HOME=~/.virtualenvs
+# source /usr/local/bin/virtualenvwrapper.sh
+source $HOME/.virtualenvsetting
 
 ### compinit ###
 autoload -U compinit
