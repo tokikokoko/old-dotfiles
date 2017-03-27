@@ -53,8 +53,6 @@ alias la='ls -Gfa'
 alias ll='ls -Gfl'
 alias lal='ls -Gfal'
 alias diff='colordiff'
-alias python='python3'
-alias pip='pip3'
 
 ### vim ###
 # vim path
