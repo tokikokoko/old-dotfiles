@@ -1,7 +1,8 @@
 ### zplug ###
 ## zplug install command
-## curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh 
+# git clone https://github.com/zplug/zplug $ZPLUG_HOME
 # init
+ZPLUG_HOME=$HOME/.zplug
 source ~/.zplug/init.zsh
 # define plugins
 zplug 'zsh-users/zsh-autosuggestions'
