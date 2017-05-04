@@ -1,4 +1,6 @@
 ### zplug ###
+## zplug install command
+## curl -sL --proto-redir -all,https https://zplug.sh/installer | zsh 
 # init
 source ~/.zplug/init.zsh
 # define plugins
@@ -14,6 +16,11 @@ DOT=~/dotfiles
 
 ### TERM ###
 TERM=xterm-256color
+
+### shell history ###
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
 
 ### prompt ###
 setopt prompt_subst
