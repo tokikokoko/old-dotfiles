@@ -11,6 +11,7 @@ Plug 'NLKNguyen/papercolor-theme'
 Plug 'junegunn/seoul256.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kassio/neoterm'
+Plug 'davidhalter/jedi-vim', { 'for':  'python' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -47,6 +48,11 @@ set clipboard=unnamed
 " キーマッピングとキーコードの遅延設定
 set timeout timeoutlen=1000 ttimeoutlen=10
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Keymap
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let mapleader = "\<Space>"
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Appearance
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " テーマ
@@ -66,3 +72,8 @@ set showmatch
 set laststatus=2
 " コマンドラインの補完
 set wildmode=list:longest
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => jedi-vim
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:jedi#force_py_version=3
