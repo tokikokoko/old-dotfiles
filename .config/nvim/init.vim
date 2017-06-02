@@ -12,6 +12,8 @@ Plug 'junegunn/seoul256.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kassio/neoterm'
 Plug 'davidhalter/jedi-vim', { 'for':  'python' }
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
