@@ -7,11 +7,11 @@ set nocompatible
 " https://github.com/junegunn/vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'junegunn/seoul256.vim'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'kassio/neoterm'
+Plug 'scrooloose/nerdtree'
 Plug 'davidhalter/jedi-vim', { 'for':  'python' }
+Plug 'vim-syntastic/syntastic'
 Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -19,6 +19,10 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => keymap
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Space Key
+let mapleader = "\<Space>"
+" Space maps
+noremap <Leader>nt :NERDTreeToggle<CR>
 " Go to normal mode with <ESC> on terminal mode
 tnoremap <Esc> <C-\><C-n>
 " mappings when IM is Japanese
@@ -49,10 +53,6 @@ set showcmd
 set clipboard=unnamed
 " キーマッピングとキーコードの遅延設定
 set timeout timeoutlen=1000 ttimeoutlen=10
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Keymap
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader = "\<Space>"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Appearance
@@ -78,4 +78,11 @@ set wildmode=list:longest
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => jedi-vim
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let g:jedi#force_py_version=3
+let g:jedi#force_py_version=3
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => syntastic
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:syntastic_python_checkers = ["flake8"]
+
+
