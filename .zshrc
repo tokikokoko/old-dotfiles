@@ -50,6 +50,10 @@ fi
 ### golang ###
 path=(/usr/local/go/bin(N-/) $path)
 
+### node ###
+export PATH=$HOME/.nodebrew/current/bin:$PATH
+
+
 ### virtualenv ###
 # 環境変数VIRTUALENVRAPPER_PYTHONに使用するPythonのパスを記述
 # virtualenvwrapper.shのパスを調べ最後に実行する
