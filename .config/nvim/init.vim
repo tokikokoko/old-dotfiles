@@ -7,14 +7,19 @@ set nocompatible
 " https://github.com/junegunn/vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
+" theme
 Plug 'jonathanfilip/vim-lucius'
+" general
 Plug 'kassio/neoterm'
 Plug 'scrooloose/nerdtree'
-Plug 'davidhalter/jedi-vim', { 'for':  'python' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" syntax
 Plug 'vim-syntastic/syntastic'
 Plug 'godlygeek/tabular'
+" markdown
 Plug 'plasticboy/vim-markdown'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" python
+Plug 'davidhalter/jedi-vim', { 'for':  'python' }
 call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => keymap
