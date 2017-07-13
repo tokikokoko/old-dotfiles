@@ -9,6 +9,7 @@ set nocompatible
 call plug#begin('~/.local/share/nvim/plugged')
 " theme
 Plug 'jonathanfilip/vim-lucius'
+Plug 'cocopon/iceberg.vim'
 " general
 Plug 'kassio/neoterm'
 Plug 'scrooloose/nerdtree'
@@ -62,8 +63,8 @@ set timeout timeoutlen=1000 ttimeoutlen=10
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Appearance
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" テーマ
-colorscheme lucius
+" theme
+colorscheme iceberg
 set background=dark
 " 行番号を表示
 set number
