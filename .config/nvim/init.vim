@@ -3,13 +3,17 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vim-plug - vim plugin manager
+" => vim-plug - vim Plug manager
 " https://github.com/junegunn/vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
 " theme
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'jonathanfilip/vim-lucius'
 Plug 'cocopon/iceberg.vim'
+" airline
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 " general
 Plug 'kassio/neoterm'
 Plug 'scrooloose/nerdtree'
@@ -89,6 +93,25 @@ let g:jedi#force_py_version=3
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => syntastic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ファイルを開いたときにはチェックしない
+let g:syntastic_check_on_open=0
+" 保存時にチェックする
+let g:syntastic_check_on_save=1
+" wqではチェックしない
+let g:syntastic_check_on_wq = 0
+" エラーが有ったら直接locationlistを開く
+let g:syntastic_auto_loc_list=1
+" ESLintを使う
+let g:syntastic_javascript_checkers = ['eslint']
+" flake8を使う
 let g:syntastic_python_checkers = ["flake8"]
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => javascript
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType javascript setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Python
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
