@@ -8,7 +8,7 @@ source ~/.zplug/init.zsh
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-completions'
 zplug 'chrissicool/zsh-256color'
-zplug 'zsh-users/zsh-syntax-highlighting', defer:2, nice=10
+zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 zplug 'mollifier/cd-gitroot'
 
 # load plugins
