@@ -18,9 +18,12 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'kassio/neoterm'
 Plug 'scrooloose/nerdtree'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'severin-lemaignan/vim-minimap'
 " syntax
 Plug 'vim-syntastic/syntastic'
 Plug 'godlygeek/tabular'
+" fish
+Plug 'dag/vim-fish'
 " markdown
 Plug 'plasticboy/vim-markdown'
 " python
@@ -47,6 +50,8 @@ nnoremap っy yy
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " シンタックス有効化
 syntax on
+" インデント有効化
+filetype plugin indent on
 " 文字コードをUTF-9に設定
 set fenc=utf-8
 " バックアップファイルを作らない
@@ -84,6 +89,13 @@ set showmatch
 set laststatus=2
 " コマンドラインの補完
 set wildmode=list:longest
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vim-minimap
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:minimap_show='<leader>ms'
+let g:minimap_update='<leader>mu'
+let g:minimap_close='<leader>gc'
+let g:minimap_toggle='<leader>gt'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => jedi-vim
@@ -107,6 +119,11 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ["flake8"]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => html
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType html,markdown setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => javascript
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType javascript setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
@@ -115,3 +132,11 @@ autocmd FileType javascript setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
 " => Python
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => fish
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set up :make to use fish for syntax checking.
+compiler fish
+" Set this to have long lines wrap inside comments.
+setlocal textwidth=79
