@@ -8,7 +8,9 @@ source ~/.zplug/init.zsh
 zplug 'zsh-users/zsh-autosuggestions'
 zplug 'zsh-users/zsh-completions'
 zplug 'chrissicool/zsh-256color'
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug 'zsh-users/zsh-syntax-highlighting', defer:2, nice=10
+zplug 'mollifier/cd-gitroot'
+
 # load plugins
 zplug load --verbose
 
@@ -25,8 +27,8 @@ SAVEHIST=1000
 
 ### prompt ###
 setopt prompt_subst
-PROMPT="%F{blue}${USER}@${HOST} %F{yellow}%~
-%F{cyan}|><-'> %F{white}"
+PROMPT="%F{blue}${USER}@${HOST} %F{yellow}[%~] %(?.$fg[green].$fg[red])(%?)%F{$reset_color}
+%F{cyan}> %F{$reset_color}"
 
 ### tmux ###
 if [[ ! -n $TMUX && $- == *l* ]]; then
@@ -124,4 +126,5 @@ function relogin(){
 function testfunc(){
 	echo "test"
 	echo "test"
+	return 125
 }
