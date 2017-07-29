@@ -84,10 +84,9 @@ zstyle ':completion:*:manuals' separate-sections true
 alias la='ls -a'
 alias ll='ls -l'
 alias lal='ls -al'
-#alias ls='ls -G1'
-#alias la='ls -Gfa'
-#alias ll='ls -Gfl'
-#alias lal='ls -Gfal'
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
 alias diff='colordiff'
 
 ### vim ###
