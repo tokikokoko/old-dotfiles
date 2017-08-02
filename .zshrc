@@ -28,7 +28,10 @@ SAVEHIST=1000
 ### prompt ###
 setopt prompt_subst
 PROMPT="%F{blue}${USER}@${HOST} %F{yellow}[%~] %(?.$fg[green].$fg[red])(%?)%F{$reset_color}
-%F{cyan}> %F{$reset_color}"
+%F{cyan}> %F{white}"
+
+### localsettings ###
+source $HOME/.localsettings
 
 ### tmux ###
 if [[ ! -n $TMUX && $- == *l* ]]; then
