@@ -22,6 +22,12 @@
       (normal-top-level-add-subdirs-to-load-path)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;-> use-package.el
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'use-package)
+(require 'bind-key)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> Packagelist.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; packagelist.elを読み込み
@@ -93,3 +99,4 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> Writing settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
