@@ -1,11 +1,5 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> use-package
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'use-package)
-(require 'bind-key)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> theme
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (load-theme 'zenburn t)
@@ -13,9 +7,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> ivy
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'ivy)
+(use-package ivy)
 ;; ivy-rich
-(require 'ivy-rich)
+(use-package ivy-rich)
 (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
 ;; swiper
 (global-set-key "\C-s" 'swiper)
@@ -50,7 +44,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> flycheck
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'flycheck)
+(use-package flycheck)
 (add-hook 'after-init-hook #'global-flycheck-mode)
 (define-key global-map (kbd "\C-cn") 'flycheck-next-error)
 (define-key global-map (kbd "\C-cp") 'flycheck-previous-error)
@@ -78,7 +72,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> web-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'web-mode)
+(use-package web-mode)
 ;; emacs 23以下の互換
 (when (< emacs-major-version 24)
   (defalias 'prog-mode 'fundamental-mode))
@@ -103,6 +97,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> highlight-idnent
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'highlight-indentation)
+(use-package highlight-indentation)
 (set-face-background 'highlight-indentation-face "#00aa00")
 (set-face-background 'highlight-indentation-current-column-face "#115511")
