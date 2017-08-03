@@ -6,6 +6,8 @@
     package-utils
     ;; use-package
     use-package
+    ;; git
+    magit
     ;; fish-shell-mode
     fish-mode
     ;; indent-guide
