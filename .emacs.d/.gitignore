@@ -17,4 +17,7 @@ elpa/*
 
 eshell/*
 
+elisp/*
+!.keep
+
 url/*
