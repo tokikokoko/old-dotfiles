@@ -54,6 +54,8 @@ fi
 
 ### golang ###
 path=(/usr/local/go/bin(N-/) $path)
+path=($HOME/.go/bin(N-/) $path)
+export GOPATH=$HOME/.go
 
 ### node ###
 export PATH=$HOME/.nodebrew/current/bin:$PATH
