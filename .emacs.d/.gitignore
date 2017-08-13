@@ -4,6 +4,9 @@ network-security.data
 smex-items
 ido.last
 bookmarks
+ac-comphist.dat
+
+.python-environments/*
 
 auto-save-list/*
 
