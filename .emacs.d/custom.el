@@ -5,7 +5,7 @@
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (python-mode jedi magit web-mode zenburn-theme go-mode flycheck indent-guide moe-theme slime counsel ivy-rich swiper company fish-mode use-package package-utils))))
+    (multiple-cursors python-mode jedi magit web-mode zenburn-theme go-mode flycheck indent-guide moe-theme slime counsel ivy-rich swiper company fish-mode use-package package-utils))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

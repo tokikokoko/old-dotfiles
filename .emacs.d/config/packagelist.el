@@ -6,14 +6,12 @@
     package-utils
     ;; use-package
     use-package
+    ;; theme
+    zenburn-theme
+    ;; general
+    multiple-cursors indent-guide
     ;; git
     magit
-    ;; fish-shell-mode
-    fish-mode
-    ;; indent-guide
-    indent-guide
-    ;; go-mode
-    go-mode
     ;; company
     company
     ;; ivy-mode
@@ -22,14 +20,14 @@
     counsel
     ;; flycheck
     flycheck
-    ;; python env
-    elpy
-    ;; slime
+    ;; fish-shell-mode
+    fish-mode
+    ;; go-mode
+    go-mode
+    ;; python
+    python-mode jedi
+    ;; lisp
     slime
-    ;; moe-theme
-    moe-theme
-    ;; zenburn
-    zenburn-theme
     ))
 
 ;; [function]install all packages from my/favorite-packages
