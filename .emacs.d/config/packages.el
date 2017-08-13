@@ -53,12 +53,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> python
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Elpy
-(elpy-enable)
-;; virtualenvのパス
-(defvar venv-default "~/.virtualenvs/default")
-;; デフォルト環境を有効化
-(pyvenv-activate venv-default)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> lisp
