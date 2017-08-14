@@ -1,8 +1,9 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> package.el
+;;-> 00.Package Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-initialize)
+;; リポジトリの設定
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
         ("melpa" . "http://melpa.org/packages/")
@@ -14,28 +15,19 @@
 		   "~/.emacs.d/config"
 		   )
                  load-path))
-
 ;; elisp配下のディレクトリをロードパスに一括追加
 (let ((default-directory (expand-file-name "~/.emacs.d/elisp")))
   (add-to-list 'load-path default-directory)
   (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
       (normal-top-level-add-subdirs-to-load-path)))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> use-package.el
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;-> use-package.el
 (require 'use-package)
 (require 'bind-key)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> Packagelist.el
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; packagelist.elを読み込み
 (load "~/.emacs.d/config/packagelist")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> User interface settings
+;;-> 01.User interface settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font設定
 (when (eq system-type 'windows-nt)
@@ -63,7 +55,7 @@
 (setq inhibit-startup-message t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> General settings
+;;-> 02.General settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Localeを日本語に
 (set-language-environment "Japanese")
@@ -86,18 +78,131 @@
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> Default plugins
+;;-> 10.Writing settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 標準Elispの設定
-(load "~/.emacs.d/config/builtins")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> External plugins
+;;-> 51.Builtin plugin settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; 非標準Elispの設定
-(load "~/.emacs.d/config/packages")
+
+;;;-> dired
+;; diredを便利にする
+(require 'dired-x)
+;; diredで日本語ファイル名出力
+(setq default-coding-system 'shift_jis)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> Writing settings
+;;-> 52.External plugin settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;-> theme
+(load-theme 'zenburn t)
+
+;;;-> ivy
+(use-package ivy)
+;; ivy-rich
+(use-package ivy-rich
+  :config
+  (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+  ;; swiper
+  (global-set-key "\C-s" 'swiper)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "<f6>") 'ivy-resume)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+  )
+
+;;;-> company
+(use-package company
+  :init
+  (global-company-mode)
+  :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 2)
+  (setq company-selection-wrap-around t)
+  ;; color settings
+  (set-face-attribute 'company-tooltip nil
+		      :foreground "black" :background "lightgrey")
+  (set-face-attribute 'company-tooltip-common nil
+		      :foreground "black" :background "lightgrey")
+  (set-face-attribute 'company-tooltip-common-selection nil
+		      :foreground "white" :background "steelblue")
+  (set-face-attribute 'company-tooltip-selection nil
+		      :foreground "black" :background "steelblue")
+  (set-face-attribute 'company-preview-common nil
+		      :background nil :foreground "lightgrey" :underline t)
+  (set-face-attribute 'company-scrollbar-fg nil
+		      :background "orange")
+  (set-face-attribute 'company-scrollbar-bg nil
+		      :background "gray40")
+  )
+
+;;;-> multiple-cursors
+(use-package multiple-cursors)
+
+;;;-> flycheck
+(use-package flycheck
+  :init
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  :bind
+  ("\C-cn" . flycheck-next-error)
+  ("\C-cp" . flycheck-previous-error)
+  ("\C-cd" . flycheck-list-errors)
+  )
+
+;;;-> python
+;; python-mode
+(use-package python-mode
+  :mode (("\\.py\\'" . python-mode))
+  )
+;; jedi
+(use-package jedi
+  :init
+  (add-hook 'python-mode-hook 'jedi:setup)
+  :config
+  (setq jedi:complete-on-dot t)
+  )
+
+;;;-> lisp
+;; slime
+(use-package slime
+  :init
+  ;;SBCLをデフォルトのCommon Lisp処理系に設定
+  (setq inferior-lisp-program "sbcl")
+  :config
+  ;;SLIMEのロード
+  (slime-setup '(slime-repl slime-fancy slime-banner))
+  )
+
+;;;-> web-mode
+(use-package web-mode
+  :mode (("\\.phtml$"     . web-mode)
+	 ("\\.tpl\\.php$" . web-mode)
+	 ("\\.jsp$"       . web-mode)
+	 ("\\.as[cp]x$"   . web-mode)
+	 ("\\.erb$"       . web-mode)
+	 ("\\.html?$"     . web-mode))
+  :init
+  (add-hook 'web-mode-hook 'my-web-mode-hook)
+  :if (< emacs-major-version 24)
+  :config
+  (defalias 'prog-mode 'fundamental-mode)
+  )
+;; インデント数
+(defun my-web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-html-offset   2)
+  (setq web-mode-css-offset    2)
+  (setq web-mode-script-offset 2)
+  (setq web-mode-php-offset    2)
+  (setq web-mode-java-offset   2)
+  (setq web-mode-asp-offset    2))
+
+;;;-> highlight-idnent
+(use-package highlight-indentation
+  :config
+  (set-face-background 'highlight-indentation-face "#00aa00")
+  (set-face-background 'highlight-indentation-current-column-face "#115511")
+  )
 
