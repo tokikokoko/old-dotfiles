@@ -11,8 +11,7 @@
 ;; ロードパスの追加
 (setq load-path (append
                  '(
-		   "~/.emacs.d/lisp",
-		   "~/.emacs.d/config"
+		   "~/.emacs.d/lisp"
 		   )
                  load-path))
 ;; elisp配下のディレクトリをロードパスに一括追加
@@ -32,8 +31,6 @@
   '(
     ;; package-utils
     package-utils
-    ;; use-package
-    use-package
     ;; theme
     zenburn-theme
     ;; general
