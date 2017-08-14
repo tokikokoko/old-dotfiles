@@ -20,6 +20,7 @@
   (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
       (normal-top-level-add-subdirs-to-load-path)))
 ;;;-> use-package.el
+;; url: https://github.com/jwiegley/use-package
 (require 'use-package)
 (require 'bind-key)
 
