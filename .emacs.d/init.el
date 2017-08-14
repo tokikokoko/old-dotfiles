@@ -23,11 +23,56 @@
 ;;;-> use-package.el
 (require 'use-package)
 (require 'bind-key)
-;; packagelist.elを読み込み
-(load "~/.emacs.d/config/packagelist")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> 01.User interface settings
+;;-> 01.Package list
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;-> packagelists
+(defvar my/favorite-packages
+  '(
+    ;; package-utils
+    package-utils
+    ;; use-package
+    use-package
+    ;; theme
+    zenburn-theme
+    ;; general
+    multiple-cursors indent-guide
+    ;; git
+    magit
+    ;; company
+    company
+    ;; ivy-mode
+    swiper ivy-rich
+    ;; counsel
+    counsel
+    ;; flycheck
+    flycheck
+    ;; fish-shell-mode
+    fish-mode
+    ;; go-mode
+    go-mode
+    ;; python
+    python-mode jedi
+    ;; lisp
+    slime
+    ))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;-> 10.Functions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;-> Package
+;; [function]install all packages from my/favorite-packages
+(defun package-install-all ()
+  (interactive)
+  (package-refresh-contents)
+  (dolist (package my/favorite-packages)
+  (unless (package-installed-p package)
+    (package-install package)))
+  (load-file "~/.emacs.d/init.el"))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;-> 21.User interface settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font設定
 (when (eq system-type 'windows-nt)
@@ -55,7 +100,7 @@
 (setq inhibit-startup-message t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> 02.General settings
+;;-> 22.General settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Localeを日本語に
 (set-language-environment "Japanese")
@@ -78,7 +123,7 @@
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;-> 10.Writing settings
+;;-> 23.Writing settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
