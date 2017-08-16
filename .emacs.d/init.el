@@ -3,7 +3,7 @@
 ;;-> 00.Package Settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (package-initialize)
-(package-refresh-contents)
+
 ;; リポジトリの設定
 (setq package-archives
       '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -49,12 +49,14 @@
     flycheck
     ;; fish-shell-mode
     fish-mode
-    ;; go-mode
+    ;; go
     go-mode
     ;; python
     python-mode jedi
     ;; lisp
     slime
+    ;; markdown
+    mkdown
     ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -243,6 +245,14 @@
   (setq web-mode-php-offset    2)
   (setq web-mode-java-offset   2)
   (setq web-mode-asp-offset    2))
+
+;;;->markdown
+(use-package mkdown
+  :config
+  (add-hook 'markdown-mode-hook
+	    '(lambda()
+	       (setq markdown-css-path mkdown-css-file-name)))
+  )
 
 ;;;-> highlight-idnent
 (use-package highlight-indentation
