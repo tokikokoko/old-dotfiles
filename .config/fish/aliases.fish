@@ -1,7 +1,13 @@
+# cd
 alias .. 'cd ..'
 alias ... 'cd ../..'
 alias .... 'cd ../../..'
 alias ..... 'cd ../../../..'
+# vim
+alias vim='nvim'
+# emacs
+alias e='emacsclient -nw'
+
 
 # prompt
 function fish_prompt
@@ -14,21 +20,15 @@ function fish_prompt
     echo -n (set_color cyan)(prompt_pwd) (set_color red)'❯'(set_color yellow)'❯'(set_color green)'❯ '
 end
 
-# vim
-alias vim='nvim'
-
-# emacs
-alias e='emacsclient -nw'
-
-function restart_server
+function restart_server -d "Restart emacsclient"
 	emacsclient -e '(kill-emacs)'
 	emacs --daemon
 end
 
-function kill_server
+function kill_server -d "Stop emacsclient"
 	emacsclient -e '(kill-emacs)'
 end
 
-function relogin
+function relogin -d "Re-login current shell"
 	exec /usr/local/bin/fish -l
 end
