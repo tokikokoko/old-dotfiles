@@ -8,3 +8,4 @@ ln -s $SCRIPT_DIR/.gvimrc $HOME
 ln -s $SCRIPT_DIR/.tmux.conf $HOME
 ln -s $SCRIPT_DIR/.vim $HOME
 ln -s $SCRIPT_DIR/.config/nvim $HOME/.config/
+ln -s $SCRIPT_DIR/.config/fish $HOME/.config/
