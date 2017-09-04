@@ -143,7 +143,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;-> theme
-(load-theme 'zenburn t)
+(use-package zenburn-theme
+  :config
+  (load-theme 'zenburn t)
+  )
 
 ;;;-> ivy
 (use-package ivy)
