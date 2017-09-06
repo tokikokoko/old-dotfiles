@@ -34,7 +34,7 @@
     ;; package-utils
     package-utils
     ;; theme
-    zenburn-theme
+    zenburn-theme dracula-theme
     ;; general
     multiple-cursors indent-guide
     ;; git
@@ -143,9 +143,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;-> theme
-(use-package zenburn-theme
+(use-package dracula-theme
   :config
-  (load-theme 'zenburn t)
+  (load-theme 'dracula t)
   )
 
 ;;;-> ivy
