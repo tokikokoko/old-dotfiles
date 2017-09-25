@@ -11,3 +11,5 @@ ln -s $SCRIPT_DIR/.config/nvim $HOME/.config/
 ln -s $SCRIPT_DIR/.config/fish $HOME/.config/
 cd $SCRIPT_DIR/.emacs.d/elisp
 git clone https://github.com/jwiegley/use-package
+curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
