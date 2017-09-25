@@ -78,11 +78,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font設定
 (when (eq system-type 'windows-nt)
-  (set-default-font "M+ 1mn light 11"))
+  (set-default-font "M+ 1mn light 11")
+  (add-to-list 'default-frame-alist '(font . "M+ 1mn light 11"))
+  )
 (when (eq system-type 'darwin)
-  (set-default-font "M+ 1mn light 12"))
+  (set-default-font "M+ 1mn light 12")
+  (add-to-list 'default-frame-alist '(font . "M+ 1mn light 12"))
+  )
 (when (eq system-type 'gnu/linux)
-  (set-default-font "M+ 1mn light 10"))
+  (set-default-font "M+ 1mn light 11")
+  (add-to-list 'default-frame-alist '(font . "M+ 1mn light 11"))
+  )
 ;; メニューバーを消す
 (menu-bar-mode -1)
 ;; ツールバーを消す

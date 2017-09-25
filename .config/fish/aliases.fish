@@ -6,7 +6,8 @@ alias ..... 'cd ../../../..'
 # vim
 alias vim='nvim'
 # emacs
-alias e='emacsclient -nw'
+alias ec='emacsclient -nw'
+alias eg='emacsclient -c -a emacs'
 
 
 # prompt
