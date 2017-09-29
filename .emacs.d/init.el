@@ -89,6 +89,8 @@
   (set-default-font "M+ 1mn light 11")
   (add-to-list 'default-frame-alist '(font . "M+ 1mn light 11"))
   )
+(set-fontset-font t 'japanese-jisx0208 (font-spec :family "M+ 1mn light"))
+
 ;; メニューバーを消す
 (menu-bar-mode -1)
 ;; ツールバーを消す
