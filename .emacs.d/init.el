@@ -257,7 +257,7 @@
   (setq web-mode-java-offset   2)
   (setq web-mode-asp-offset    2))
 
-;;;->markdown
+;;;-> markdown
 (use-package mkdown
   :config
   (add-hook 'markdown-mode-hook
