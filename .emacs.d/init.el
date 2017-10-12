@@ -24,6 +24,8 @@
 ;; url: https://github.com/jwiegley/use-package
 (require 'use-package)
 (require 'bind-key)
+;; cl-lib
+(use-package cl-lib)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 01.Package list
@@ -171,6 +173,9 @@
   (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
   )
 
+;; magit
+(global-set-key (kbd "C-c m g t") 'magit-status)
+
 ;;;-> company
 (use-package company
   :init
@@ -221,6 +226,26 @@
   :config
   (setq jedi:complete-on-dot t)
   )
+
+;;; -> ruby
+;; ruby-mode
+(autoload 'ruby-mode "ruby-mode"
+  "Mode for editing ruby source files" t)
+(autoload 'ruby-electric-mode "ruby-electric")
+(global-set-key (kbd "C-c r b") 'ruby-mode)
+(add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("Gemfile$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
+;; ruby-mode settings
+(add-hook 'ruby-mode-hook
+	     #'(lambda ()
+  ;; 括弧の自動挿入
+		 (ruby-electric-mode)
+  ;; インデント幅: 2
+		 (setq ruby-indent-level 2)
+  ;; 改行時に自動インデント
+		 (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)))
 
 ;;;-> lisp
 ;; slime
