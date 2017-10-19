@@ -175,6 +175,16 @@
 ;;   (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 ;;   )
 
+;; helm
+(use-package helm-config
+  :init
+  (helm-mode t)
+  )
+(use-package helm
+  :bind
+  ("M-x" . helm-M-x)
+  )
+
 ;; magit
 (global-set-key (kbd "C-c m g t") 'magit-status)
 
