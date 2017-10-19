@@ -77,6 +77,14 @@
     (package-install package)))
   (load-file "~/.emacs.d/init.el"))
 
+;; [function]rename current shell
+(defun eshell/make-new-eshell (name)
+  "Create a shell buffer named NAME."
+  (interactive "sName: ")
+  (setq name (concat "$" name))
+  (eshell)
+  (rename-buffer name))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 21.User interface settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -135,6 +143,13 @@
 	 (expand-file-name "~/.emacs.d/backup/") t)))
 ;; Avoid to write `package-selected-packages` in init.el
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
+;; window-move
+(global-set-key (kbd "C-c C-b") 'windmove-left)
+(global-set-key (kbd "C-c C-n") 'windmove-down)
+(global-set-key (kbd "C-c C-p") 'windmove-up)
+(global-set-key (kbd "C-c C-f") 'windmove-right)
+;; 画面端まで移動したら反対側へ
+(setq windmove-wrap-around t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 23.Writing settings
@@ -199,7 +214,7 @@
   :config
   (setq shackle-rules
 	'(
-	  (neotree :select t :inhibit-window-quit t :same t)
+	  (neotree :select t :inhibit-window-quit t)
 	  ("\\`\\*helm.*?\\*\\'" :regexp t :size 0.3 :align t)
 	  (magit-status-mode :select t :inhibit-window-quit t :same t)
 	  (magit-log-mode :select t :inhibit-window-quit t :same t)
