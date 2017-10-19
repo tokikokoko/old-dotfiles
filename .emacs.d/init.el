@@ -44,9 +44,11 @@
     ;; company
     company
     ;; ivy-mode
-    swiper ivy-rich
+    ;; swiper ivy-rich
     ;; counsel
-    counsel
+    ;; counsel
+    ;; helm
+    helm
     ;; flycheck
     flycheck
     ;; fish-shell-mode
@@ -159,19 +161,19 @@
   )
 
 ;;;-> ivy
-(use-package ivy)
+;; (use-package ivy)
 ;; ivy-rich
-(use-package ivy-rich
-  :config
-  (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
-  ;; swiper
-  (global-set-key "\C-s" 'swiper)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "<f6>") 'ivy-resume)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-  )
+;; (use-package ivy-rich
+;;   :config
+;;   (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
+;;   ;; swiper
+;;   (global-set-key "\C-s" 'swiper)
+;;   (global-set-key (kbd "C-c C-r") 'ivy-resume)
+;;   (global-set-key (kbd "<f6>") 'ivy-resume)
+;;   (global-set-key (kbd "M-x") 'counsel-M-x)
+;;   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;;   (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+;;   )
 
 ;; magit
 (global-set-key (kbd "C-c m g t") 'magit-status)
