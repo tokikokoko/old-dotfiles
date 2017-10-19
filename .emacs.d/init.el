@@ -38,7 +38,7 @@
     ;; theme
     zenburn-theme dracula-theme
     ;; general
-    multiple-cursors indent-guide
+    multiple-cursors indent-guide neotree shackle
     ;; git
     magit
     ;; company
@@ -69,7 +69,7 @@
 ;;;-> Package
 ;; [function]install all packages from my/favorite-packages
 (defun package-install-all ()
-  (interactive)
+  (interactive "Install all packages")
   (package-refresh-contents)
   ;(package-refresh-contents)
   (dolist (package my/favorite-packages)
@@ -183,6 +183,30 @@
 (use-package helm
   :bind
   ("M-x" . helm-M-x)
+  ("\C-x \C-f" . helm-find-files)
+  ("C-;" . helm-mini)
+  )
+
+;; neotree
+(use-package neotree
+  :init
+  (setq-default neo-show-hidden-files t)
+  :bind
+  ("C-x C-j" . neotree-show))
+
+;; shackle
+(use-package shackle
+  :config
+  (setq shackle-rules
+	'(
+	  (neotree :select t :inhibit-window-quit t :same t)
+	  ("\\`\\*helm.*?\\*\\'" :regexp t :size 0.3 :align t)
+	  (magit-status-mode :select t :inhibit-window-quit t :same t)
+	  (magit-log-mode :select t :inhibit-window-quit t :same t)
+	  ))
+  (setq shackle-lighter "")
+  (shackle-mode 1)
+  (provide 'setup-shackle)
   )
 
 ;; magit
@@ -190,9 +214,8 @@
 
 ;;;-> company
 (use-package company
-  :init
-  (global-company-mode)
   :config
+  (global-company-mode)
   (setq company-idle-delay 0)
   (setq company-minimum-prefix-length 2)
   (setq company-selection-wrap-around t)
@@ -221,9 +244,9 @@
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
   :bind
-  ("\C-cn" . flycheck-next-error)
-  ("\C-cp" . flycheck-previous-error)
-  ("\C-cd" . flycheck-list-errors)
+  ("\C-c n" . flycheck-next-error)
+  ("\C-c p" . flycheck-previous-error)
+  ("\C-c d" . flycheck-list-errors)
   )
 
 ;;;-> python
