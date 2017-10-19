@@ -78,7 +78,7 @@
   (load-file "~/.emacs.d/init.el"))
 
 ;; [function]rename current shell
-(defun eshell/make-new-eshell (name)
+(defun eshell/rename-eshell (name)
   "Create a shell buffer named NAME."
   (interactive "sName: ")
   (setq name (concat "$" name))
