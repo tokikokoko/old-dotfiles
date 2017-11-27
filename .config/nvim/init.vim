@@ -29,6 +29,9 @@ Plug 'plasticboy/vim-markdown'
 " python
 Plug 'davidhalter/jedi-vim', { 'for':  'python' }
 call plug#end()
+" Rust
+Plug 'rust-lang/rust.vim'
+Plug 'racer-rust/vim-racer'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => keymap
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -106,7 +109,7 @@ let g:jedi#force_py_version=3
 " => syntastic
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ファイルを開いたときにはチェックしない
-let g:syntastic_check_on_open=0
+let g:syntastic_check_on_open=1
 " 保存時にチェックする
 let g:syntastic_check_on_save=1
 " wqではチェックしない
@@ -132,6 +135,15 @@ autocmd FileType javascript setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
 " => Python
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Rust
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let $RUST_SRC_PATH = expand('~/dotfiles/rust/src')
+let g:racer_cmd = '$HOME/.cargo/bin/racer'
+let g:racer_experimental_completer = 1
+let g:rustfmt_autosave = 1
+let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => fish
