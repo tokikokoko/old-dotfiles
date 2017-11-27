@@ -165,6 +165,16 @@
 ;; diredで日本語ファイル名出力
 (setq default-coding-system 'shift_jis)
 
+;;;-> eshell
+;; prompt
+(setq eshell-prompt-function
+      (lambda ()
+        (concat "[eshell"
+                (eshell/pwd)
+                (if (= (user-uid) 0) "]\n# " "]\n$ "))))
+;; disable company-mode
+(add-hook 'eshell-mode-hook (lambda() (company-mode 0)))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 52.External plugin settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
