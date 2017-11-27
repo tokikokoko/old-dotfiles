@@ -10,6 +10,8 @@ set DOT $HOME/dotfiles
 set -x TERM xterm-256color
 set -x EDITOR emacs
 
-# golang
+# go-lang
 set -x GOPATH $HOME/.go
 
+# rust-lang
+set -x PATH $HOME/.cargo/bin $PATH
