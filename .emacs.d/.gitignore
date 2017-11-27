@@ -5,6 +5,7 @@ smex-items
 ido.last
 bookmarks
 ac-comphist.dat
+*.eld
 
 .python-environments/*
 
