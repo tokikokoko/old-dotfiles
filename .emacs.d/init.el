@@ -39,16 +39,17 @@
     zenburn-theme dracula-theme
     ;; general
     multiple-cursors indent-guide neotree shackle
+    projectile rainbow-delimiters
     ;; git
     magit
     ;; company
     company
     ;; ivy-mode
-    ;; swiper ivy-rich
+    swiper ivy-rich
     ;; counsel
-    ;; counsel
+    counsel
     ;; helm
-    helm
+    ;; helm
     ;; flycheck
     flycheck
     ;; fish-shell-mode
@@ -69,7 +70,7 @@
 ;;;-> Package
 ;; [function]install all packages from my/favorite-packages
 (defun package-install-all ()
-  (interactive "Install all packages")
+  (interactive)
   (package-refresh-contents)
   ;(package-refresh-contents)
   (dolist (package my/favorite-packages)
@@ -186,31 +187,32 @@
   )
 
 ;;;-> ivy
-;; (use-package ivy)
-;; ivy-rich
-;; (use-package ivy-rich
-;;   :config
-;;   (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer)
-;;   ;; swiper
-;;   (global-set-key "\C-s" 'swiper)
-;;   (global-set-key (kbd "C-c C-r") 'ivy-resume)
-;;   (global-set-key (kbd "<f6>") 'ivy-resume)
-;;   (global-set-key (kbd "M-x") 'counsel-M-x)
-;;   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-;;   (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-;;   )
+(use-package ivy
+  :config
+  ;; ivy-rich
+  (use-package ivy-rich
+    :config
+    (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer))
+  ;; keys
+  (global-set-key "\C-s" 'swiper)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (global-set-key (kbd "<f6>") 'ivy-resume)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+  )
 
 ;; helm
-(use-package helm-config
-  :init
-  (helm-mode t)
-  )
-(use-package helm
-  :bind
-  ("M-x" . helm-M-x)
-  ("\C-x \C-f" . helm-find-files)
-  ("C-;" . helm-mini)
-  )
+;; (use-package helm-config
+;;   :init
+;;   (helm-mode t)
+;;   )
+;; (use-package helm
+;;   :bind
+;;   ("M-x" . helm-M-x)
+;;   ("\C-x \C-f" . helm-find-files)
+;;   ("C-;" . helm-mini)
+;;   )
 
 ;; neotree
 (use-package neotree
@@ -225,7 +227,7 @@
   (setq shackle-rules
 	'(
 	  (neotree :select t :inhibit-window-quit t)
-	  ("\\`\\*helm.*?\\*\\'" :regexp t :size 0.3 :align t)
+	  ;; ("\\`\\*helm.*?\\*\\'" :regexp t :size 0.3 :align t)
 	  (magit-status-mode :select t :inhibit-window-quit t :same t)
 	  (magit-log-mode :select t :inhibit-window-quit t :same t)
 	  ))
