@@ -45,17 +45,17 @@
     ;; company
     company
     ;; ivy-mode
-    swiper ivy-rich
-    ;; counsel
-    counsel
+    ;; swiper ivy-rich counsel
     ;; helm
-    ;; helm
+    helm helm-swoop 
     ;; flycheck
     flycheck
     ;; fish-shell-mode
     fish-mode
     ;; go
     go-mode
+    ;; ruby
+    ruby-electric
     ;; python
     python-mode jedi
     ;; lisp
@@ -186,33 +186,37 @@
   (load-theme 'dracula t)
   )
 
-;;;-> ivy
-(use-package ivy
-  :config
-  ;; ivy-rich
-  (use-package ivy-rich
-    :config
-    (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer))
-  ;; keys
-  (global-set-key "\C-s" 'swiper)
-  (global-set-key (kbd "C-c C-r") 'ivy-resume)
-  (global-set-key (kbd "<f6>") 'ivy-resume)
-  (global-set-key (kbd "M-x") 'counsel-M-x)
-  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-  (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-  )
+;; ;;;-> ivy
+;; (use-package ivy
+;;   :config
+;;   ;; ivy-rich
+;;   (use-package ivy-rich
+;;     :config
+;;     (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer))
+;;   ;; keys
+;;   (global-set-key "\C-s" 'swiper)
+;;   (global-set-key (kbd "C-c C-r") 'ivy-resume)
+;;   (global-set-key (kbd "<f6>") 'ivy-resume)
+;;   (global-set-key (kbd "M-x") 'counsel-M-x)
+;;   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+;;   (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
+;;   )
 
-;; helm
-;; (use-package helm-config
-;;   :init
-;;   (helm-mode t)
-;;   )
-;; (use-package helm
-;;   :bind
-;;   ("M-x" . helm-M-x)
-;;   ("\C-x \C-f" . helm-find-files)
-;;   ("C-;" . helm-mini)
-;;   )
+;;-> helm
+(use-package helm
+  :init
+  (use-package helm-config
+    :init
+    (helm-mode t))
+  :bind
+  ("M-x" . helm-M-x)
+  ("\C-x \C-f" . helm-find-files)
+  ("C-;" . helm-mini)
+  ("M-i" . helm-swoop)
+  ("M-I" . helm-swoop-back-to-last-point)
+  ("\C-c \M-i" . helm-multi-swoop)
+  ("\C-x \M-i" . helm-multi-swoop-all)
+  )
 
 ;; neotree
 (use-package neotree
@@ -236,8 +240,12 @@
   (provide 'setup-shackle)
   )
 
+;; projectile
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+
 ;; magit
-(global-set-key (kbd "C-c m g t") 'magit-status)
+(global-set-key (kbd "C-c m g") 'magit-status)
 
 ;;;-> company
 (use-package company
@@ -274,6 +282,8 @@
   ("\C-c n" . flycheck-next-error)
   ("\C-c p" . flycheck-previous-error)
   ("\C-c d" . flycheck-list-errors)
+  :config
+  (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
   )
 
 ;;;-> python
@@ -308,6 +318,12 @@
 		 (setq ruby-indent-level 2)
   ;; 改行時に自動インデント
 		 (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)))
+;; ruby-flycheck
+(add-hook 'ruby-mode-hook 'flycheck-mode)
+;; robe
+(add-hook 'ruby-mode-hook 'robe-mode)
+(eval-after-load 'company
+  '(push 'company-robe company-backends))
 
 ;;;-> lisp
 ;; slime
