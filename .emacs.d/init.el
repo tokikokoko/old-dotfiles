@@ -39,7 +39,7 @@
     zenburn-theme dracula-theme
     ;; general
     multiple-cursors indent-guide neotree shackle
-    projectile rainbow-delimiters
+    projectile rainbow-delimiters ripgrep helm-ag
     ;; git
     magit
     ;; company
@@ -47,7 +47,7 @@
     ;; ivy-mode
     ;; swiper ivy-rich counsel
     ;; helm
-    helm helm-swoop 
+    helm helm-swoop
     ;; flycheck
     flycheck
     ;; fish-shell-mode
