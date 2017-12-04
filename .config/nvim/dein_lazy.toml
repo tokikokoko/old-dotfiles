@@ -1,0 +1,27 @@
+# fish
+[[plugins]]
+repo = 'dag/vim-fish'
+on_ft = ['fish']
+
+# toml
+[[plugins]]
+repo = 'cespare/vim-toml'
+on_ft = ['toml']
+
+# markdown
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['md', 'markdown']
+
+# python
+[[plugins]]
+repo = 'davidhalter/jedi-vim'
+on_ft = ['py', 'python']
+
+# Rust
+[[plugins]]
+repo = 'rust-lang/rust.vim'
+on_ft = ['rs', 'rust']
+[[plugins]]
+repo = 'racer-rust/vim-racer'
+on_ft = ['rs', 'rust']
