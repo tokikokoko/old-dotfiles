@@ -244,7 +244,10 @@
 (setq projectile-completion-system 'helm)
 
 ;; magit
-(global-set-key (kbd "C-c m g") 'magit-status)
+(use-package magit
+  :bind
+  ("M-g" . magit-status)
+  )
 
 ;;;-> company
 (use-package company
