@@ -72,7 +72,6 @@
 (defun package-install-all ()
   (interactive)
   (package-refresh-contents)
-  ;(package-refresh-contents)
   (dolist (package my/favorite-packages)
   (unless (package-installed-p package)
     (package-install package)))
