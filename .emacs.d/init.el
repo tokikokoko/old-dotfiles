@@ -36,10 +36,11 @@
     ;; package-utils
     package-utils
     ;; theme
-    zenburn-theme dracula-theme
+    zenburn-theme dracula-theme spacemacs-theme
     ;; general
     multiple-cursors indent-guide neotree shackle
     projectile rainbow-delimiters ripgrep helm-ag
+    spaceline
     ;; git
     magit
     ;; company
@@ -180,10 +181,12 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;-> theme
-(use-package dracula-theme
+(load-theme 'spacemacs-dark t)
+
+;; spaceline
+(use-package spaceline-config
   :config
-  (load-theme 'dracula t)
-  )
+  (spaceline-spacemacs-theme))
 
 ;; ;;;-> ivy
 ;; (use-package ivy
