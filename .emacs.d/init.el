@@ -53,6 +53,8 @@
     flycheck
     ;; fish-shell-mode
     fish-mode
+    ;; docker-file
+    dockerfile-mode
     ;; go
     go-mode
     ;; ruby
@@ -298,6 +300,11 @@
   :config
   (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
   )
+
+;;;-> docker
+(use-package dockerfile-mode
+  :config
+  (add-to-list 'auto-mode-alist '("Dockerfile\\'" . dockerfile-mode)))
 
 ;;;-> web-mode
 (use-package web-mode
