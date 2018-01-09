@@ -185,6 +185,6 @@ let g:rustfmt_autosave = 1
 let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
 "===> fish
 " Set up :make to use fish for syntax checking.
-compiler fish
+" compiler fish
 " Set this to have long lines wrap inside comments.
 setlocal textwidth=79
