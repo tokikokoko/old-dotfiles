@@ -11,6 +11,7 @@ set -x EDITOR emacs
 
 # node
 set -x PATH $HOME/.nodebrew/current/bin $PATH
+set -x PATH ./node_modules/.bin $PATH
 
 # yarn
 set -x PATH $HOME/.yarn/bin $PATH
