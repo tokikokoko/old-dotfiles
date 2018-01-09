@@ -40,7 +40,7 @@
     ;; general
     multiple-cursors indent-guide neotree shackle
     projectile rainbow-delimiters ripgrep helm-ag
-    spaceline
+    spaceline linum-relative
     ;; git
     magit
     ;; company
@@ -49,6 +49,8 @@
     ;; swiper ivy-rich counsel
     ;; helm
     helm helm-swoop
+    ;; org
+    ox-pandoc org-bullets
     ;; flycheck
     flycheck
     ;; fish-shell-mode
@@ -82,6 +84,13 @@
     (package-install package)))
   (load-file "~/.emacs.d/init.el"))
 
+;;;-> Buffer
+;; [function]Reload current buffer no confirm
+(defun revert-buffer-no-confirm ()
+    "Revert buffer without confirmation."
+    (interactive) (revert-buffer t t))
+
+;;;-> shell
 ;; [function]rename current shell
 (defun eshell/rename-eshell (name)
   "Create a shell buffer named NAME."
@@ -93,18 +102,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 21.User interface settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; font設定
+;; font
 (when (eq system-type 'windows-nt)
   (set-default-font "M+ 1mn light 11")
   (add-to-list 'default-frame-alist '(font . "M+ 1mn light 11"))
   )
 (when (eq system-type 'darwin)
-  (set-default-font "M+ 1mn light 12")
-  (add-to-list 'default-frame-alist '(font . "M+ 1mn light 12"))
+  (set-default-font "Source Han Code JP 11")
+  (add-to-list 'default-frame-alist '(font . "Source Han Code JP 11"))
   )
 (when (eq system-type 'gnu/linux)
-  (set-default-font "M+ 1mn light 11")
-  (add-to-list 'default-frame-alist '(font . "M+ 1mn light 11"))
+  (set-default-font "Source Han Code JP 11")
+  (add-to-list 'default-frame-alist '(font . "Source Han Code JP 11"))
   )
 (set-fontset-font t 'japanese-jisx0208 (font-spec :family "M+ 1mn light"))
 
@@ -122,7 +131,7 @@
 ;; ウィンドウ内に収まらないときだけ括弧内も強調
 (setq show-paren-style 'mixed)
 ;; 行番号を表示
-(global-linum-mode t)
+;; (global-linum-mode t)
 ;; スタートアップページを表示しない
 (setq inhibit-startup-message t)
 
@@ -148,17 +157,25 @@
 	 (expand-file-name "~/.emacs.d/backup/") t)))
 ;; Avoid to write `package-selected-packages` in init.el
 (load (setq custom-file (expand-file-name "custom.el" user-emacs-directory)))
-;; window-move
-(global-set-key (kbd "C-c C-b") 'windmove-left)
-(global-set-key (kbd "C-c C-n") 'windmove-down)
-(global-set-key (kbd "C-c C-p") 'windmove-up)
-(global-set-key (kbd "C-c C-f") 'windmove-right)
 ;; 画面端まで移動したら反対側へ
 (setq windmove-wrap-around t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 23.Writing settings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;;-> Keyconfig
+;; window-move
+(global-unset-key (kbd "C-c C-f"))
+(global-unset-key (kbd "C-c C-n"))
+(global-unset-key (kbd "C-c C-p"))
+(global-unset-key (kbd "C-c C-b"))
+(global-set-key (kbd "C-c C-b") 'windmove-left)
+(global-set-key (kbd "C-c C-n") 'windmove-down)
+(global-set-key (kbd "C-c C-p") 'windmove-up)
+(global-set-key (kbd "C-c C-f") 'windmove-right)
+;; Reload buffer
+(global-set-key (kbd "M-r") 'revert-buffer-no-confirm)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 51.Builtin plugin settings
@@ -187,7 +204,12 @@
 ;;;-> theme
 (load-theme 'spacemacs-dark t)
 
-;; spaceline
+;;;-> linum
+(use-package linum-relative
+  :config
+  (linum-relative-global-mode t))
+
+;;;-> spaceline
 (use-package spaceline-config
   :config
   (spaceline-spacemacs-theme))
@@ -208,7 +230,7 @@
 ;;   (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
 ;;   )
 
-;;-> helm
+;;;-> helm
 (use-package helm
   :init
   (use-package helm-config
@@ -224,14 +246,14 @@
   ("\C-x \M-i" . helm-multi-swoop-all)
   )
 
-;; neotree
+;;;-> neotree
 (use-package neotree
   :init
   (setq-default neo-show-hidden-files t)
   :bind
   ("C-x C-j" . neotree-show))
 
-;; shackle
+;;;-> shackle
 (use-package shackle
   :config
   (setq shackle-rules
@@ -246,11 +268,11 @@
   (provide 'setup-shackle)
   )
 
-;; projectile
+;;;-> projectile
 (projectile-global-mode)
 (setq projectile-completion-system 'helm)
 
-;; magit
+;;-> magit
 (use-package magit
   :bind
   ("M-g" . magit-status)
@@ -301,6 +323,10 @@
   (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
   )
 
+;;;-> org-mode
+;; org-agenda
+(setq org-agenda-files '("~/Dropbox/documents/todo.org"))
+
 ;;;-> docker
 (use-package dockerfile-mode
   :config
@@ -327,7 +353,7 @@
 (use-package python-mode
   :mode (("\\.py\\'" . python-mode))
   )
-;; jedi
+;;;-> jedi
 (use-package jedi
   :init
   (add-hook 'python-mode-hook 'jedi:setup)
@@ -335,11 +361,10 @@
   (setq jedi:complete-on-dot t)
   )
 
-;;; -> ruby
+;;;-> ruby
 ;; ruby-mode
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
-(autoload 'ruby-electric-mode "ruby-electric")
 (global-set-key (kbd "C-c r b") 'ruby-mode)
 (add-to-list 'auto-mode-alist '("\\.rb$" . ruby-mode))
 (add-to-list 'auto-mode-alist '("Capfile$" . ruby-mode))
@@ -348,12 +373,8 @@
 ;; ruby-mode settings
 (add-hook 'ruby-mode-hook
 	     #'(lambda ()
-  ;; 括弧の自動挿入
-		 (ruby-electric-mode)
   ;; インデント幅: 2
-		 (setq ruby-indent-level 2)
-  ;; 改行時に自動インデント
-		 (define-key ruby-mode-map "\C-m" 'ruby-reindent-then-newline-and-indent)))
+		 (setq ruby-indent-level 2)))
 ;; ruby-flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 ;; robe
@@ -410,4 +431,3 @@
   (set-face-background 'highlight-indentation-face "#00aa00")
   (set-face-background 'highlight-indentation-current-column-face "#115511")
   )
-
