@@ -8,15 +8,30 @@ on_ft = ['fish']
 repo = 'cespare/vim-toml'
 on_ft = ['toml']
 
-# markdown
+# Markdown
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
 on_ft = ['md', 'markdown']
 
-# python
+# Python
 [[plugins]]
 repo = 'davidhalter/jedi-vim'
 on_ft = ['py', 'python']
+
+# Ruby
+# Need fastri, neovim, rcodetools gems
+[[plugins]]
+repo = 'Shougo/deoplete-rct'
+on_ft = ['rb', 'ruby']
+[[plugins]]
+repo = 'osyo-manga/vim-monster'
+on_i = 1
+hook_add = '''
+let g:monster#completion#rcodetools#backend = "async_rct_complete"
+let g:deoplete#sources#omni#input_patterns = {
+  \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
+  \}
+'''
 
 # Rust
 [[plugins]]
@@ -25,3 +40,15 @@ on_ft = ['rs', 'rust']
 [[plugins]]
 repo = 'racer-rust/vim-racer'
 on_ft = ['rs', 'rust']
+
+# javascript
+## ES6
+[[plugins]]
+repo = 'othree/yajs.vim'
+on_ft = ['javascript']
+
+# slim
+[[plugins]]
+repo = 'slim-template/vim-slim'
+on_ft = ['slim']
+
