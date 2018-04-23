@@ -202,7 +202,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;-> theme
-(load-theme 'spacemacs-dark t)
+(load-theme 'darktooth t)
 
 ;;;-> linum
 (use-package linum-relative
