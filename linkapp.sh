@@ -11,6 +11,7 @@ ln -s $SCRIPT_DIR/.config/nvim $HOME/.config/
 ln -s $SCRIPT_DIR/.config/fish $HOME/.config/
 cd $SCRIPT_DIR/.emacs.d/elisp
 git clone https://github.com/jwiegley/use-package
+git clone https://github.com/antonj/Highlight-Indentation-for-Emacs
 git clone https://github.com/nonsequitur/inf-ruby
 cd $SCRIPT_DIR
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
