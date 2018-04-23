@@ -5,9 +5,9 @@ set nocompatible
 "==> dein
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Required:
-set runtimepath+=/Users/tokiko/.cache/dein/repos/github.com/Shougo/dein.vim
 let s:dein_dir = expand('~/.cache/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
 if dein#load_state(s:dein_dir)
 	call dein#begin(s:dein_dir)
 	let s:toml_dir = expand('~/.config/nvim')
@@ -45,6 +45,9 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
+" fzf
+noremap <C-e> :Files<CR>
+noremap <C-x> :Buffers<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -99,12 +102,14 @@ set mouse=a
 set showcmd
 " ◆や○文字が崩れる問題を解決"
 set ambiwidth=double
+" 相対行番号
+set relativenumber
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Appearance
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " theme
-colorscheme papercolor
-set background=light
+colorscheme jellybeans
+set background=dark
 " 行番号を表示
 set number
 " 現在の行を強調表示
@@ -138,7 +143,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "===> lightline
 let g:lightline = {
-      \ 'colorscheme': 'PaperColor',
+      \ 'colorscheme': 'jellybeans',
       \	'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -155,19 +160,25 @@ let g:minimap_toggle='<leader>gt'
 "===> jedi-vim
 let g:jedi#force_py_version=3
 "===> syntastic
-" ファイルを開いたときにはチェックしない
-let g:syntastic_check_on_open=1
-" 保存時にチェックする
-let g:syntastic_check_on_save=1
-" wqではチェックしない
-let g:syntastic_check_on_wq = 0
-" エラーが有ったら直接locationlistを開く
-let g:syntastic_auto_loc_list=1
-" ESLintを使う
-let g:syntastic_javascript_checkers = ['eslint']
-" flake8を使う
-let g:syntastic_python_checkers = ["flake8"]
-
+" indentLine
+let g:indentLine_color_term = 100
+let g:indentLine_color_gui = '#FFFFFF'
+let g:indentLine_bgcolor_term = 100
+" let g:indentLine_bgcolor_gui = '#FF5FFF'
+let g:indentLine_setConceal = 0
+let g:indentLine_concealcursor = 'inc'
+let g:indentLine_conceallevel = 0
+"===> ale
+let g:ale_sign_column_always = 1
+let g:ale_linters = {
+	\ 'javascript': ['eslint'],
+	\ 'ruby': ['rubocop'],
+	\ 'sql': ['sqlint'],
+\}
+"===> fzf
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~30%' }
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Language configs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

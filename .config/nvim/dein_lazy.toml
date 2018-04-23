@@ -33,6 +33,11 @@ let g:deoplete#sources#omni#input_patterns = {
   \}
 '''
 
+# Elixir
+[[plugins]]
+repo = 'elixir-editors/vim-elixir'
+on_ft = ['ex', 'exs', 'eex']
+
 # Rust
 [[plugins]]
 repo = 'rust-lang/rust.vim'
