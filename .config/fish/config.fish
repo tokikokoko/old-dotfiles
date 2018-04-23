@@ -1,13 +1,15 @@
 # ############
 # fish config
 # ############
-# alias & function 読み込み
-. $HOME/.config/fish/aliases.fish
 
 # 環境変数読み込み
 if status --is-login
 	. $HOME/.config/fish/env.fish
 end
+
+# function & alias読み込み
+. $HOME/.config/fish/user_functions.fish
+. $HOME/.config/fish/aliases.fish
 
 # 環境依存設定読み込み
 if test -f $HOME/local.fish
