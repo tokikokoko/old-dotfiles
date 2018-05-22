@@ -54,3 +54,13 @@ function AutoCtags
 		sleep $argv[1]
 	end
 end
+
+# git get branches
+function get_git_branches
+	git branch --list --all | awk '{print substr($0, 3, length($0))}'
+end
+
+# git checkout
+function gc
+	git checkout (get_git_branches | fzf)
+end

@@ -15,6 +15,12 @@ for p in $PATH
     end
 end
 
+# git
+alias gi='git'
+alias gic='gic'
+alias gib='git branch -a'
+alias giw='git worktree'
+
 # emacs
 alias ec='emacsclient -nw'
 alias eg='emacsclient -c -a emacs'
