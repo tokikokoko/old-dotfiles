@@ -4,6 +4,10 @@ repo = 'Shougo/dein.vim'
 repo = 'Shougo/vimproc.vim'
 # theme
 [[plugins]]
+repo = 'reedes/vim-colors-pencil'
+[[plugins]]
+repo = 'Haron-Prime/Antares'
+[[plugins]]
 repo = 'NLKNguyen/papercolor-theme'
 [[plugins]]
 repo = 'jonathanfilip/vim-lucius'
@@ -11,12 +15,6 @@ repo = 'jonathanfilip/vim-lucius'
 repo = 'cocopon/iceberg.vim'
 [[plugins]]
 repo = 'nanotech/jellybeans.vim'
-
-## airline
-#[[plugins]]
-#repo = 'vim-airline/vim-airline'
-#[[plugins]]
-#repo = 'vim-airline/vim-airline-themes'
 
 # lightline
 [[plugins]]
@@ -47,11 +45,17 @@ repo = 'Shougo/neomru.vim'
 # Vim plugin: Turn :cd into :tabpagecd, to use one tab page per project
 [[plugins]]
 repo = 'kana/vim-tabpagecd'
+# multiple-cursors
+[[plugins]]
+repo = 'terryma/vim-multiple-cursors'
 
 # completion
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
 hook_add = 'let g:deoplete#enable_at_startup = 1'
+[[plugins]]
+repo = 'Shougo/deoplete-rct'
+on_ft = ['rb', 'ruby']
 [[plugins]]
 repo = 'cohama/lexima.vim'
 

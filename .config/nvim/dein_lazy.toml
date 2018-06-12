@@ -21,8 +21,8 @@ on_ft = ['py', 'python']
 # Ruby
 # Need fastri, neovim, rcodetools gems
 [[plugins]]
-repo = 'Shougo/deoplete-rct'
-on_ft = ['rb', 'ruby']
+repo = 'fishbullet/deoplete-ruby'
+on_ft = ['ruby']
 [[plugins]]
 repo = 'osyo-manga/vim-monster'
 on_i = 1
