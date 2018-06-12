@@ -27,6 +27,8 @@ endif
 let mapleader = "\<Space>"
 " Space maps
 noremap <Leader>nt :NERDTreeToggle<CR>
+noremap <Leader>tbn :tabnew<CR>
+noremap <Leader>tbc :tabclose<CR>
 " Go to normal mode with <ESC> on terminal mode
 tnoremap <Esc> <C-\><C-n>
 " mappings when IM is Japanese
@@ -45,9 +47,6 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-j> <C-w>j
 nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
-" fzf
-noremap <C-e> :Files<CR>
-noremap <C-x> :Buffers<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -73,8 +72,6 @@ set clipboard=unnamed
 set timeout timeoutlen=1000 ttimeoutlen=10
 " スクロールする時に下が見えるようにする
 set scrolloff=5
-" 256色対応
-set t_Co=256
 " エンコード, ファイルエンコード
 set encoding=utf-8
 set fileencoding=utf-8
@@ -103,17 +100,22 @@ set showcmd
 " ◆や○文字が崩れる問題を解決"
 set ambiwidth=double
 " 相対行番号
-set relativenumber
+set norelativenumber
+" インタラクティブに文字列置換
+set inccommand=split
+" vimgrep後に自動でquickfix-windowを開く
+autocmd QuickFixCmdPost *grep* cwindow
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Appearance
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " theme
-colorscheme jellybeans
-set background=dark
+colorscheme pencil
+" colorscheme PaperColor
+set t_Co=256
+set background=light
+" let g:pencil_higher_contrast_ui = 1
 " 行番号を表示
 set number
-" 現在の行を強調表示
-" set cursorline
 " 行末の1文字先までカーソル移動できるように
 set virtualedit=onemore
 " インデントはスマートインデント
@@ -125,7 +127,7 @@ set laststatus=2
 " コマンドラインの補完
 set wildmode=list:longest
 " シンタックスハイライトの最大行数
-set synmaxcol=200
+set synmaxcol=300
 " 全角スペースのハイライト
 function! ZenkakuSpace()
     highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
@@ -143,7 +145,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "===> lightline
 let g:lightline = {
-      \ 'colorscheme': 'jellybeans',
+      \ 'colorscheme': 'PaperColor_light',
       \	'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -159,15 +161,14 @@ let g:minimap_close='<leader>gc'
 let g:minimap_toggle='<leader>gt'
 "===> jedi-vim
 let g:jedi#force_py_version=3
-"===> syntastic
 " indentLine
-let g:indentLine_color_term = 100
-let g:indentLine_color_gui = '#FFFFFF'
-let g:indentLine_bgcolor_term = 100
-" let g:indentLine_bgcolor_gui = '#FF5FFF'
-let g:indentLine_setConceal = 0
-let g:indentLine_concealcursor = 'inc'
-let g:indentLine_conceallevel = 0
+" let g:indentLine_color_term = 100
+" let g:indentLine_color_gui = '#FFFFFF'
+" let g:indentLine_bgcolor_term = 100
+" " let g:indentLine_bgcolor_gui = '#FF5FFF'
+" let g:indentLine_setConceal = 0
+" let g:indentLine_concealcursor = 'inc'
+" let g:indentLine_conceallevel = 0
 "===> ale
 let g:ale_sign_column_always = 1
 let g:ale_linters = {
@@ -179,6 +180,10 @@ let g:ale_linters = {
 " Default fzf layout
 " - down / up / left / right
 let g:fzf_layout = { 'down': '~30%' }
+" keymap
+noremap <C-e> :Files<CR>
+noremap <C-x> :Buffers<CR>
+noremap <Leader>fbl :BLines<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Language configs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -186,6 +191,8 @@ let g:fzf_layout = { 'down': '~30%' }
 autocmd FileType html,markdown setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
 "===> javascript
 autocmd FileType javascript setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
+"===> Haskell
+autocmd FileType haskell setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 "===> Python
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 "===> Rust
