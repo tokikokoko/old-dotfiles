@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "baseUrl": "/Users/keita/Worksapce/oni/node_modules"
+  }
+}

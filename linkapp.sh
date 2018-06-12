@@ -9,6 +9,7 @@ ln -s $SCRIPT_DIR/.tmux.conf $HOME
 ln -s $SCRIPT_DIR/.vim $HOME
 ln -s $SCRIPT_DIR/.config/nvim $HOME/.config/
 ln -s $SCRIPT_DIR/.config/fish $HOME/.config/
+ln -s $SCRIPT_DIR/.config/oni $HOME/.config/
 cd $SCRIPT_DIR/.emacs.d/elisp
 git clone https://github.com/jwiegley/use-package
 git clone https://github.com/antonj/Highlight-Indentation-for-Emacs
