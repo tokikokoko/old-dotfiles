@@ -37,10 +37,11 @@
     package-utils
     ;; theme
     zenburn-theme dracula-theme spacemacs-theme
+    sanityinc-tomorrow-day
     ;; general
-    multiple-cursors indent-guide neotree shackle
+    multiple-cursors indent-guide shackle
     projectile rainbow-delimiters ripgrep helm-ag
-    spaceline linum-relative
+    spaceline linum-relative editorconfig
     ;; git
     magit
     ;; company
@@ -104,16 +105,16 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; font
 (when (eq system-type 'windows-nt)
-  (set-default-font "M+ 1mn light 11")
-  (add-to-list 'default-frame-alist '(font . "M+ 1mn light 11"))
+  (set-default-font "M+ 1mn light 12")
+  (add-to-list 'default-frame-alist '(font . "M+ 1mn light 12"))
   )
 (when (eq system-type 'darwin)
-  (set-default-font "Source Han Code JP 11")
-  (add-to-list 'default-frame-alist '(font . "Source Han Code JP 11"))
+  (set-default-font "Source Han Code JP 12")
+  (add-to-list 'default-frame-alist '(font . "Source Han Code JP 12"))
   )
 (when (eq system-type 'gnu/linux)
-  (set-default-font "Source Han Code JP 11")
-  (add-to-list 'default-frame-alist '(font . "Source Han Code JP 11"))
+  (set-default-font "Source Han Code JP 12")
+  (add-to-list 'default-frame-alist '(font . "Source Han Code JP 12"))
   )
 (set-fontset-font t 'japanese-jisx0208 (font-spec :family "M+ 1mn light"))
 
@@ -131,7 +132,7 @@
 ;; ウィンドウ内に収まらないときだけ括弧内も強調
 (setq show-paren-style 'mixed)
 ;; 行番号を表示
-;; (global-linum-mode t)
+(global-linum-mode t)
 ;; スタートアップページを表示しない
 (setq inhibit-startup-message t)
 
@@ -202,12 +203,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;-> theme
-(load-theme 'darktooth t)
-
-;;;-> linum
-(use-package linum-relative
-  :config
-  (linum-relative-global-mode t))
+(load-theme 'sanityinc-tomorrow-day t)
 
 ;;;-> spaceline
 (use-package spaceline-config
@@ -245,13 +241,6 @@
   ("\C-c \M-i" . helm-multi-swoop)
   ("\C-x \M-i" . helm-multi-swoop-all)
   )
-
-;;;-> neotree
-(use-package neotree
-  :init
-  (setq-default neo-show-hidden-files t)
-  :bind
-  ("C-x C-j" . neotree-show))
 
 ;;;-> shackle
 (use-package shackle
@@ -363,6 +352,7 @@
 
 ;;;-> ruby
 ;; ruby-mode
+(setq ruby-insert-encoding-magic-comment nil)
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (global-set-key (kbd "C-c r b") 'ruby-mode)
