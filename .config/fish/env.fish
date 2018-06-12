@@ -1,4 +1,5 @@
 # PATH
+set -x PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
 set -x PATH /usr/local/bin $PATH
 
 # general
@@ -10,7 +11,7 @@ set -x EDITOR nvim
 set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*"'
 set -x FZF_LEGACY_KEYBINDINGS 1
 set -x FZF_FIND_FILE_COMMAND $FZF_DEFAULT_COMMAND
-
+set -x FZF_DEFAULT_OPTS '--color=light'
 # node
 if test -d ./node_modules/.bin
     set -x PATH ./node_modules/.bin $PATH
