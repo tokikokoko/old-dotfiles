@@ -184,6 +184,11 @@ let g:fzf_layout = { 'down': '~30%' }
 noremap <C-e> :Files<CR>
 noremap <C-x> :Buffers<CR>
 noremap <Leader>fbl :BLines<CR>
+"===> deoplete
+let g:deoplete#enable_smart_case = 1
+let b:deoplete_disable_auto_complete=1 
+let g:deoplete_disable_auto_complete=1
+" set sources
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Language configs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
