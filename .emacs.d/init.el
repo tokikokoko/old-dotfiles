@@ -37,7 +37,7 @@
     package-utils
     ;; theme
     zenburn-theme dracula-theme spacemacs-theme
-    sanityinc-tomorrow-day
+    sanityinc-tomorrow
     ;; general
     multiple-cursors indent-guide shackle
     projectile rainbow-delimiters ripgrep helm-ag
@@ -364,9 +364,9 @@
 (add-to-list 'auto-mode-alist '("[Rr]akefile$" . ruby-mode))
 ;; ruby-mode settings
 (add-hook 'ruby-mode-hook
-	     #'(lambda ()
-  ;; インデント幅: 2
-		 (setq ruby-indent-level 2)))
+	  #'(lambda ()
+	      ;; インデント幅: 2
+	      (setq ruby-indent-level 2)))
 ;; ruby-flycheck
 (add-hook 'ruby-mode-hook 'flycheck-mode)
 ;; robe
@@ -416,6 +416,12 @@
 	    '(lambda()
 	       (setq markdown-css-path mkdown-css-file-name)))
   )
+
+;;;-> fish-shell
+(add-hook 'fish-mode-hook
+	  #'(lambda ()
+	      ;; インデント幅: 4
+       	      (setq fish-indent-level 4)))
 
 ;;;-> highlight-idnent
 (use-package highlight-indentation
