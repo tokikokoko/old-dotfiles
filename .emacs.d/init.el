@@ -58,6 +58,8 @@
     fish-mode
     ;; docker-file
     dockerfile-mode
+    ;; elixir
+    elixir-mode alchemist flymake-elixir
     ;; go
     go-mode
     ;; ruby
@@ -81,15 +83,15 @@
   (interactive)
   (package-refresh-contents)
   (dolist (package my/favorite-packages)
-  (unless (package-installed-p package)
-    (package-install package)))
+    (unless (package-installed-p package)
+      (package-install package)))
   (load-file "~/.emacs.d/init.el"))
 
 ;;;-> Buffer
 ;; [function]Reload current buffer no confirm
 (defun revert-buffer-no-confirm ()
-    "Revert buffer without confirmation."
-    (interactive) (revert-buffer t t))
+  "Revert buffer without confirmation."
+  (interactive) (revert-buffer t t))
 
 ;;;-> shell
 ;; [function]rename current shell
