@@ -37,19 +37,19 @@
     package-utils
     ;; theme
     zenburn-theme dracula-theme spacemacs-theme
-    sanityinc-tomorrow
+    color-theme-sanityinc-tomorrow
     ;; general
     multiple-cursors indent-guide shackle
     projectile rainbow-delimiters ripgrep helm-ag
-    spaceline linum-relative editorconfig
+    spaceline linum-relative editorconfig hydra
+    visual-regexp elscreen 
     ;; git
     magit
     ;; company
     company
     ;; ivy-mode
-    ;; swiper ivy-rich counsel
-    ;; helm
-    helm helm-swoop
+    swiper ivy-rich counsel
+    counsel-projectile
     ;; org
     ox-pandoc org-bullets
     ;; flycheck
@@ -59,7 +59,7 @@
     ;; docker-file
     dockerfile-mode
     ;; elixir
-    elixir-mode alchemist flymake-elixir
+    elixir-mode alchemist flycheck-elixir
     ;; go
     go-mode
     ;; ruby
@@ -205,45 +205,50 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;;-> theme
-(load-theme 'sanityinc-tomorrow-day t)
+;;(load-theme 'sanityinc-tomorrow-day t)
+(load-theme 'leuven t)
 
 ;;;-> spaceline
 (use-package spaceline-config
   :config
   (spaceline-spacemacs-theme))
 
-;; ;;;-> ivy
-;; (use-package ivy
-;;   :config
-;;   ;; ivy-rich
-;;   (use-package ivy-rich
-;;     :config
-;;     (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer))
-;;   ;; keys
-;;   (global-set-key "\C-s" 'swiper)
-;;   (global-set-key (kbd "C-c C-r") 'ivy-resume)
-;;   (global-set-key (kbd "<f6>") 'ivy-resume)
-;;   (global-set-key (kbd "M-x") 'counsel-M-x)
-;;   (global-set-key (kbd "C-x C-f") 'counsel-find-file)
-;;   (global-set-key (kbd "C-x b") 'ivy-switch-buffer)
-;;   )
-
-;;;-> helm
-(use-package helm
-  :init
-  (use-package helm-config
-    :init
-    (helm-mode t))
+;;;-> ivy
+(use-package ivy
   :bind
-  ("M-x" . helm-M-x)
-  ("\C-x \C-f" . helm-find-files)
-  ("C-;" . helm-mini)
-  ("M-i" . helm-swoop)
-  ("M-I" . helm-swoop-back-to-last-point)
-  ("\C-c \M-i" . helm-multi-swoop)
-  ("\C-x \M-i" . helm-multi-swoop-all)
+  ("C-s" . 'swiper)
+  ("\C-c \C-r" . 'ivy-resume)
+  ("M-x" . 'counsel-M-x)
+  ("\C-x \C-f" . 'counsel-find-file)
+  ("C-x b" . 'ivy-switch-buffer)
+  ("\C-c g" . 'counsel-git)
+  ("\C-c j" . 'counsel-git-grep)
+  ("\C-c k" . 'counsel-ag)
+  :config
+  (setq ivy-use-virtual-buffers t)
+  (setq enable-recursive-minibuffers t)
+  ;; ivy-rich
+  (use-package ivy-rich
+    :config
+    (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer))
   )
 
+;; ;;;-> helm
+;; (use-package helm
+;;   :init
+;;   (use-package helm-config
+;;     :init
+;;     (helm-mode t))
+;;   :bind
+;;   ("M-x" . helm-M-x)
+;;   ("\C-x \C-f" . helm-find-files)
+;;   ("C-;" . helm-mini)
+;;   ("M-i" . helm-swoop)
+;;   ("M-I" . helm-swoop-back-to-last-point)
+;;   ("\C-c \M-i" . helm-multi-swoop)
+;;   ("\C-x \M-i" . helm-multi-swoop-all)
+;;   )
+ 
 ;;;-> shackle
 (use-package shackle
   :config
@@ -259,9 +264,15 @@
   (provide 'setup-shackle)
   )
 
+;;;->
+(use-package winum
+  :config
+  (winum-mode))
+
 ;;;-> projectile
-(projectile-global-mode)
-(setq projectile-completion-system 'helm)
+(counsel-projectile-mode)
+;; (projectile-global-mode)
+;; (setq projectile-completion-system 'helm)
 
 ;;-> magit
 (use-package magit
@@ -299,8 +310,51 @@
 		      :background "gray40")
   )
 
+;;;-> hydra
+(use-package hydra
+  :config
+  (global-set-key
+   (kbd "C-;")
+   (defhydra hydra-move ()
+     "move"
+     ("f" forward-char "right")
+     ("b" backward-char "left")
+     ("n" next-line "down")
+     ("p" previous-line "up")
+     ("SPC" scroll-up-command "down")
+     ("<backspace>" scroll-down-command "up")
+     ("." hydra-repeat "repeat")))
+  (global-set-key
+   (kbd "C-^")
+   (defhydra hydra-window-size ()
+     "move"
+     ("f" enlarge-window-horizontally "horizontal-large")
+     ("b" shrink-window-horizontally "horizontal-shrink")
+     ("n" enlarge-window "vertical-large")
+     ("p" shrink-window "vertical-shrink")
+     ("." hydra-repeat "repeat"))))
+
+;;;-> elscreen
+(use-package elscreen
+  :init
+  (custom-set-variables
+   '(elscreen-prefix-key (kbd "C-z"))
+   ;;'(elscreen-display-tab nil)
+   '(elscreen-tab-display-kill-screen nil)
+   '(elscreen-tab-display-control nil))
+  ;;(bind-key "C-t p" 'helm-elscreen)
+  (bind-key* "C-<tab>" 'elscreen-next)
+  (bind-key* "<C-iso-lefttab>" 'elscreen-previous)
+(elscreen-start))
+
 ;;;-> multiple-cursors
 (use-package multiple-cursors)
+
+;;;-> visual-regexp
+(use-package visual-regexp
+  :bind
+  ("M-%" . vr/query-replace)
+  )
 
 ;;;-> flycheck
 (use-package flycheck
@@ -314,6 +368,9 @@
   (setq flycheck-check-syntax-automatically '(idle-change mode-enabled new-line save))
   )
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;-> 53. Language Settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;;-> org-mode
 ;; org-agenda
 (setq org-agenda-files '("~/Dropbox/documents/todo.org"))
@@ -344,7 +401,7 @@
 (use-package python-mode
   :mode (("\\.py\\'" . python-mode))
   )
-;;;-> jedi
+;; jedi
 (use-package jedi
   :init
   (add-hook 'python-mode-hook 'jedi:setup)
@@ -354,7 +411,9 @@
 
 ;;;-> ruby
 ;; ruby-mode
-(setq ruby-insert-encoding-magic-comment nil)
+;; disable ruby magic comment
+(custom-set-variables
+ '(ruby-insert-encoding-magic-comment nil))
 (autoload 'ruby-mode "ruby-mode"
   "Mode for editing ruby source files" t)
 (global-set-key (kbd "C-c r b") 'ruby-mode)
@@ -373,6 +432,11 @@
 (add-hook 'ruby-mode-hook 'robe-mode)
 (eval-after-load 'company
   '(push 'company-robe company-backends))
+
+;;;-> Elixir
+(use-package elixir-mode)
+(use-package alchemist)
+(use-package flycheck-elixir)
 
 ;;;-> lisp
 ;; slime
@@ -410,12 +474,14 @@
   (setq web-mode-asp-offset    2))
 
 ;;;-> markdown
-(use-package mkdown
-  :config
-  (add-hook 'markdown-mode-hook
-	    '(lambda()
-	       (setq markdown-css-path mkdown-css-file-name)))
-  )
+(use-package markdown-mode
+  :ensure t
+  :commands (markdown-mode gfm-mode)
+  :mode (("README\\.md\\'" . gfm-mode)
+         ("\\.md\\'" . markdown-mode)
+         ("\\.markdown\\'" . markdown-mode))
+  :init (setq markdown-command "multimarkdown"))
+
 
 ;;;-> fish-shell
 (add-hook 'fish-mode-hook
@@ -426,6 +492,7 @@
 ;;;-> highlight-idnent
 (use-package highlight-indentation
   :config
-  (set-face-background 'highlight-indentation-face "#00aa00")
-  (set-face-background 'highlight-indentation-current-column-face "#115511")
+  (add-hook 'prog-mode-hook 'highlight-indentation-mode)
+  (set-face-background 'highlight-indentation-face "#e3e3d3")
+  (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
   )

@@ -68,6 +68,10 @@ set hidden
 set showcmd
 " vimの無名レジスタとOSクリップボードの連携
 set clipboard=unnamed
+" 折り畳まない
+set foldmethod=syntax
+let perl_fold=1
+set foldlevel=100
 " キーマッピングとキーコードの遅延設定
 set timeout timeoutlen=1000 ttimeoutlen=10
 " スクロールする時に下が見えるようにする
@@ -171,6 +175,9 @@ let g:jedi#force_py_version=3
 " let g:indentLine_conceallevel = 0
 "===> ale
 let g:ale_sign_column_always = 1
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_open_list = 1
 let g:ale_linters = {
 	\ 'javascript': ['eslint'],
 	\ 'ruby': ['rubocop'],

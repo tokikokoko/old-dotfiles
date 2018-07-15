@@ -24,3 +24,7 @@ alias giw='git worktree'
 # emacs
 alias ec='emacsclient -nw'
 alias eg='emacsclient -c -a emacs'
+
+# docker
+alias dk='docker'
+alias dkc='docker-compose'
