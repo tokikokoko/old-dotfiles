@@ -2,6 +2,7 @@
 "==> important setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> dein
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Required:
@@ -13,6 +14,10 @@ if dein#load_state(s:dein_dir)
 	let s:toml_dir = expand('~/.config/nvim')
 	call dein#load_toml(s:toml_dir . '/dein.toml', {'lazy': 0})
 	call dein#load_toml(s:toml_dir . '/dein_lazy.toml', {'lazy': 1})
+	call dein#add('autozimu/LanguageClient-neovim', {
+	\ 'rev': 'next',
+	\ 'build': 'bash install.sh',
+	\ })
 	call dein#end()
 	call dein#save_state()
 endif
@@ -21,16 +26,86 @@ if dein#check_install()
   call dein#install()
 endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"==> functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> keymap
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Space Key
+"===> Space Key
 let mapleader = "\<Space>"
-" Space maps
-noremap <Leader>nt :NERDTreeToggle<CR>
-noremap <Leader>tbn :tabnew<CR>
-noremap <Leader>tbc :tabclose<CR>
-" Go to normal mode with <ESC> on terminal mode
-tnoremap <Esc> <C-\><C-n>
+" Leader Dict
+let g:lmap =  {}
+" a
+let g:lmap.a = { 'name': 'Application' }
+" b
+let g:lmap.b = { 'name': 'Buffer' }
+" g
+let g:lmap.g = { 'name': 'Grep' }
+" f
+let g:lmap.f = { 'name': 'Frequentry' }
+let g:lmap.f.e = { 'name': 'Settings' }
+" p
+let g:lmap.p = { 'name': 'Project' }
+" q
+let g:lmap.q = { 'name': 'Quit' }
+" t
+let g:lmap.t = { 'name': 'Tab' }
+" w
+let g:lmap.w = { 'name': 'Window' }
+
+"===> LeaderKey maps
+"====> Application
+noremap <Leader>an :Explore
+let g:lmap.a.n = [':Explore', 'netrw']
+noremap <Leader>at :terminal
+let g:lmap.a.t = [':terminal', 'terminal']
+"====> Tabs
+noremap <Leader>tn :tabnew
+let g:lmap.t.c = [':tabnew', 'create']
+noremap <Leader>tc :tabclose
+let g:lmap.t.d = [':tabclose', 'close']
+noremap <Leader>tn :tabn
+let g:lmap.t.n = [':tabn', 'next']
+noremap <Leader>tp :tabp
+let g:lmap.t.p = [':tabp', 'previous']
+
+"====> Frequentry
+" No highlight
+noremap <Leader>fh :noh
+let g:lmap.f.h = [':noh', 'No highlight']
+" Open .vimrc
+noremap <Leader>fed :e ~/.config/nvim/init.vim
+let g:lmap.f.e.d = [':e ~/.config/nvim/init.vim', 'Open .vimrc']
+" Reload setting
+noremap <Leader>feR source ~/.config/nvim/init.vim
+let g:lmap.f.e.R = ['source ~/.config/nvim/init.vim', 'Reload settings']
+" Update buffer
+noremap <Leader>fer :e!
+let g:lmap.f.e.r = [':e!', 'Update buffer']
+
+"====> Quit
+noremap <Leader>qq :q
+let g:lmap.q.q = [':q', 'Quit']
+noremap <Leader>qq :a
+let g:lmap.q.a = [':qa', 'Quit all']
+
+"====> window
+noremap <Leader>wd :close
+let g:lmap.w.d = [':close', 'close']
+noremap <Leader>wv :vs
+let g:lmap.w.v = [':vs', 'vertical split']
+noremap <Leader>ws :split
+let g:lmap.w.s = [':split', 'horizontal split']
+noremap <Leader>wh :wincmd h
+let g:lmap.w.h = [':wincmd h', 'move left']
+noremap <Leader>wj :wincmd j
+let g:lmap.w.j = [':wincmd j', 'move down']
+noremap <Leader>wk :wincmd k
+let g:lmap.w.k = [':wincmd k', 'move up']
+noremap <Leader>wl :wincmd l
+let g:lmap.w.l = [':wincmd l', 'move left']
+
+"===> Common maps
 " mappings when IM is Japanese
 nnoremap あ a
 nnoremap い i
@@ -42,11 +117,12 @@ nnoremap っy yy
 inoremap jj <Esc>
 " vを二回で行末まで選択
 vnoremap v $h
-" Ctrl + hjkl でウィンドウ間を移動
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
+" undotreeを利用する
+nnoremap u g-
+nnoremap <C-r> g+
+" Go to normal mode with <ESC> on terminal mode
+tnoremap <Esc> <C-\><C-n>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> setting
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -109,14 +185,20 @@ set norelativenumber
 set inccommand=split
 " vimgrep後に自動でquickfix-windowを開く
 autocmd QuickFixCmdPost *grep* cwindow
+" timeout
+set timeoutlen=10
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Appearance
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " theme
-colorscheme pencil
+colorscheme tender
 " colorscheme PaperColor
+autocmd ColorScheme * highlight LineNr ctermfg=22 guifg=#ffe793
+set termguicolors
+let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set t_Co=256
-set background=light
+set background=dark
+
 " let g:pencil_higher_contrast_ui = 1
 " 行番号を表示
 set number
@@ -147,9 +229,15 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Plugin
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===> deoplete
+let g:deoplete#auto_complete_delay = 1
+let g:deoplete#auto_complete_start_length = 2
+let g:deoplete#max_list = 200
+let g:deoplete#enable_smart_case = 1
+
 "===> lightline
 let g:lightline = {
-      \ 'colorscheme': 'PaperColor_light',
+      \ 'colorscheme': 'tender',
       \	'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
@@ -163,50 +251,67 @@ let g:minimap_show='<leader>ms'
 let g:minimap_update='<leader>mu'
 let g:minimap_close='<leader>gc'
 let g:minimap_toggle='<leader>gt'
-"===> jedi-vim
-let g:jedi#force_py_version=3
-" indentLine
-" let g:indentLine_color_term = 100
-" let g:indentLine_color_gui = '#FFFFFF'
-" let g:indentLine_bgcolor_term = 100
-" " let g:indentLine_bgcolor_gui = '#FF5FFF'
-" let g:indentLine_setConceal = 0
-" let g:indentLine_concealcursor = 'inc'
-" let g:indentLine_conceallevel = 0
+
 "===> ale
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+let g:ale_set_quickfix = 0
 let g:ale_open_list = 1
 let g:ale_linters = {
-	\ 'javascript': ['eslint'],
 	\ 'ruby': ['rubocop'],
 	\ 'sql': ['sqlint'],
 \}
+"===> ack
+let g:ackprg = 'ag --nogroup --nocolor --column --vimgrep'
 "===> fzf
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'down': '~30%' }
-" keymap
-noremap <C-e> :Files<CR>
-noremap <C-x> :Buffers<CR>
-noremap <Leader>fbl :BLines<CR>
+let g:fzf_layout = { 'down': '~40%' }
+"====> keymap
+noremap <Leader>pf :Files
+let g:lmap.p.f = [':Files', 'Project Files']
+noremap <Leader>bb :Buffers
+let g:lmap.b.b = [':Buffers', 'List']
+noremap <Leader>gb :BLines
+let g:lmap.g.b = [':BLines', 'Current Buffer']
+
+"===> vim-leader-guide
+call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
+nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+let g:leaderGuide_hspace = 4
+let g:leaderGuide_vertical = 0
+let g:leaderGuide_sort_horizontal = 1
+let g:leaderGuide_run_map_on_popup = 1
+
 "===> deoplete
 let g:deoplete#enable_smart_case = 1
 let b:deoplete_disable_auto_complete=1 
 let g:deoplete_disable_auto_complete=1
-" set sources
+
+"===> indentLine
+let g:indentLine_setColors = 0
+let g:indentLine_color_term = 239
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Language configs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "===> HTML
-autocmd FileType html,markdown setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
-"===> javascript
+autocmd FileType html setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
+"===> Javascript
 autocmd FileType javascript setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
+"===> Vue
+autocmd FileType vue syntax sync fromstart
 "===> Haskell
 autocmd FileType haskell setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 "===> Python
 autocmd FileType python setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
+"===> Ruby
+autocmd FileType ruby setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
+"===> Elixir
+autocmd FileType elixir setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
+"===> Go
+autocmd FileType go setl tabstop=4 expandtab shiftwidth=4 softtabstop=4
 "===> Rust
 let $RUST_SRC_PATH = expand('~/dotfiles/rust/src')
 let g:racer_cmd = '$HOME/.cargo/bin/racer'
@@ -214,7 +319,10 @@ let g:racer_experimental_completer = 1
 let g:rustfmt_autosave = 1
 let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
 "===> fish
+autocmd FileType fish setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 " Set up :make to use fish for syntax checking.
 " compiler fish
 " Set this to have long lines wrap inside comments.
 setlocal textwidth=79
+"===> Markdown
+autocmd FileType markdown setl tabstop=2 expandtab shiftwidth=4 softtabstop=4

@@ -2,76 +2,54 @@
 repo = 'Shougo/dein.vim'
 [[plugins]]
 repo = 'Shougo/vimproc.vim'
-# theme
 [[plugins]]
-repo = 'reedes/vim-colors-pencil'
+repo = 'roxma/vim-hug-neovim-rpc'
 [[plugins]]
-repo = 'Haron-Prime/Antares'
-[[plugins]]
-repo = 'NLKNguyen/papercolor-theme'
+repo = 'roxma/nvim-yarp'
+# themes
 [[plugins]]
 repo = 'jonathanfilip/vim-lucius'
 [[plugins]]
-repo = 'cocopon/iceberg.vim'
-[[plugins]]
-repo = 'nanotech/jellybeans.vim'
+repo = 'jacoborus/tender.vim'
 
 # lightline
 [[plugins]]
 repo = 'itchyny/lightline.vim'
 
 # general
-# [[plugins]]
-# repo = 'Shougo/denite.nvim'
-# hook_add = '''
-# call denite#custom#var('file_rec', 'command', ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
-# call denite#custom#var('grep', 'command', ['ag'])
-# call denite#custom#var('grep', 'recursive_opts', [])
-# call denite#custom#var('grep', 'pattern_opt', [])
-# call denite#custom#var('grep', 'default_opts', ['--follow', '--no-group', '--no-color'])
-# '''
-[[plugins]]
-repo = '/usr/local/opt/fzf'
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 [[plugins]]
-repo = 'kassio/neoterm'
-[[plugins]]
-repo = 'scrooloose/nerdtree'
+repo = '/usr/local/opt/fzf'
 [[plugins]]
 repo = 'Yggdroot/indentLine'
 [[plugins]]
 repo = 'Shougo/neomru.vim'
+[[plugins]]
+repo = 'wsdjeg/FlyGrep.vim'
+[[plugins]]
+repo = 'hecal3/vim-leader-guide'
+
+# git
+[[plugins]]
+repo = 'airblade/vim-gitgutter'
+
 # Vim plugin: Turn :cd into :tabpagecd, to use one tab page per project
 [[plugins]]
 repo = 'kana/vim-tabpagecd'
 # multiple-cursors
 [[plugins]]
 repo = 'terryma/vim-multiple-cursors'
+[[plugins]]
+repo = 'mileszs/ack.vim'
 
 # completion
 [[plugins]]
 repo = 'Shougo/deoplete.nvim'
-on_event = 'InsertCharPre'
-hook_source = '''
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#auto_complete_delay = 0
-  let g:deoplete#auto_complete_start_length = 1
-  let g:deoplete#enable_camel_case = 0
-  let g:deoplete#enable_ignore_case = 0
-  let g:deoplete#enable_refresh_always = 0
-  let g:deoplete#enable_smart_case = 1
-  let g:deoplete#file#enable_buffer_path = 1
-  let g:deoplete#max_list = 10000
-  inoremap <expr><tab> pumvisible() ? "\<C-n>" :
-        \ neosnippet#expandable_or_jumpable() ?
-        \    "\<Plug>(neosnippet_expand_or_jump)" : "\<tab>"
+hook_add = '''
+let g:deoplete#enable_at_startup = 1
 '''
-on_i = 1
 
-[[plugins]]
-repo = 'Shougo/deoplete-rct'
-on_ft = ['rb', 'ruby']
 [[plugins]]
 repo = 'cohama/lexima.vim'
 

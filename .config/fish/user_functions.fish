@@ -20,47 +20,58 @@ function kill_server -d "Stop emacsclient"
 end
 
 # shell
-function relogin -d "Re-login current shell"
-    exec /usr/local/bin/fish -l
-end
-
-# auto execute ctags
-# Example
-# -> AutoCtags 300 "--exclude="*.js" --exclude=".git*" --exclude="*.ts" --extra=+f"
-# Result
-# -> execute ctags every 300sec
-function AutoCtagsP
-    set rem (math '$argv[1] % 10')
-    set div (math '$argv[1] / 10')
-    while true
-	set count 1
-	set flag false
-	ctags -R . $argv[2]
-	while true
-	    if math '$count > $div'
-		break
-	    end
-	    sleep 10
-	    echo (math '$count * 10')
-	    set count (math '$count + 1')
-	end
-	sleep $rem
-    end
-end
-
-function AutoCtags
-    while true
-	ctags -R . $argv[2]
-	sleep $argv[1]
-    end
+function re -d "Re-login current shell"
+    exec fish --login
 end
 
 # git get branches
 function get_git_branches
-    git branch --list --all | awk '{print substr($0, 3, length($0))}'
+    git branch -vv \
+    | fzf --ansi \
+    | awk '{print substr($0, 3, length($0))}' \
+    | awk '{print $1}'
 end
 
 # git checkout
 function gc
-    git checkout (get_git_branches | fzf)
+    git checkout (get_git_branches)
+end
+
+# git stage
+function git_stage_list
+    git status -s \
+    | fzf --multi --ansi --tac \
+    | awk '{if (NR==eof) printf "%s ", $2; else print $2}'
+end
+
+function gs
+    git add (git_stage_list)
+end
+
+# Convert markdown to Github style html
+function pandoc_convert_markdonw -d ""
+    pandoc $argv[1] -s --self-contained -t html5 -c $HOME/.pandoc/github.css -o $argv[2]
+end
+
+# Kill process
+function kill_ps
+    ps | fzf | awk '{print $1}' | xargs kill
+end
+
+# Update ctags
+function auto_ctags
+    set c (pwd)
+    fish -c "while sleep 300; ctags -R "$c"; end" &
+end
+
+# Docker container list
+function dk_container_list
+    docker container list \
+    | fzf --multi \
+    | awk '{print $1}'
+end
+
+function stop_container
+    dk_container_list \
+    | xargs docker container stop
 end

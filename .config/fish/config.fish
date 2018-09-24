@@ -2,23 +2,25 @@
 # fish config
 # ############
 
-# 環境変数読み込み
 if status --is-login
-    . $HOME/.config/fish/env.fish
-end
 
-# function & alias読み込み
-. $HOME/.config/fish/user_functions.fish
-. $HOME/.config/fish/aliases.fish
+    # 環境変数読み込み
+    source $HOME/.config/fish/env.fish
 
-# 環境依存設定読み込み
-if test -f $HOME/local.fish
-    . $HOME/local.fish	
-end
+    # function & alias読み込み
+    source $HOME/.config/fish/user_functions.fish
+    source $HOME/.config/fish/aliases.fish
 
-# Ensure fisherman and plugins are installed
-if not test -f $HOME/.config/fish/functions/fisher.fish
-    echo "==> Fisherman not found.  Installing."
-    curl -sLo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
-    fisher
+    # 環境依存設定読み込み
+    if test -f $HOME/local.fish
+        source $HOME/local.fish	
+    end
+
+    # fisherman
+    if not test -f $HOME/.config/fish/functions/fisher.fish
+        echo "==> Fisherman not found.  Installing."
+        curl -sLo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
+        fisher
+    end
+
 end

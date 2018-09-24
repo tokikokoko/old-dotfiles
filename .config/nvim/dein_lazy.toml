@@ -13,47 +13,43 @@ on_ft = ['toml']
 repo = 'plasticboy/vim-markdown'
 on_ft = ['md', 'markdown']
 
-# Python
-[[plugins]]
-repo = 'davidhalter/jedi-vim'
-on_ft = ['py', 'python']
-
 # Ruby
 # Need fastri, neovim, rcodetools gems
 [[plugins]]
-repo = 'fishbullet/deoplete-ruby'
-on_ft = ['ruby']
-[[plugins]]
-repo = 'osyo-manga/vim-monster'
-on_i = 1
-hook_add = '''
-let g:monster#completion#rcodetools#backend = "async_rct_complete"
-let g:deoplete#sources#omni#input_patterns = {
-  \ "ruby" : '[^. *\t]\.\w*\|\h\w*::',
-  \}
-'''
+repo = 'uplus/deoplete-solargraph'
+on_ft = ['rb', 'ruby']
 
 # Elixir
 [[plugins]]
 repo = 'elixir-editors/vim-elixir'
 on_ft = ['ex', 'exs', 'eex']
+[[plugins]]
+repo = 'slashmili/alchemist.vim'
+on_ft = ['ex', 'exs', 'eex']
+
+# Go
+[[plugins]]
+repo = 'fatih/vim-go'
+on_ft = ['go']
+[[plugins]]
+repo = 'zchee/deoplete-go'
+on_ft = ['go']
+hook_post_update = '''
+	let g:dein#plugin.build = 'make'
+'''
+hook_add = '''
+	let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+	let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+'''
 
 # Rust
 [[plugins]]
 repo = 'rust-lang/rust.vim'
 on_ft = ['rs', 'rust']
-[[plugins]]
-repo = 'racer-rust/vim-racer'
-on_ft = ['rs', 'rust']
 
 # javascript
 ## ES6
+# Vue.js
 [[plugins]]
-repo = 'othree/yajs.vim'
-on_ft = ['javascript']
-
-# slim
-[[plugins]]
-repo = 'slim-template/vim-slim'
-on_ft = ['slim']
-
+repo = 'posva/vim-vue'
+on_ft = ['vue']
