@@ -1,5 +1,4 @@
 # PATH
-set -x PATH /usr/local/opt/coreutils/libexec/gnubin $PATH
 set -x PATH /usr/local/bin $PATH
 
 # general

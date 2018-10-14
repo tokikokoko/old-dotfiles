@@ -3,28 +3,76 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"==> vim-plug
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+call plug#begin('~/.local/share/nvim/plugged')
+Plug 'Shougo/dein.vim'
+Plug 'Shougo/vimproc.vim'
+Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'roxma/nvim-yarp'
+Plug 'jonathanfilip/vim-lucius'
+Plug 'jacoborus/tender.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'Yggdroot/indentLine'
+Plug 'Shougo/neomru.vim'
+Plug 'wsdjeg/FlyGrep.vim'
+Plug 'hecal3/vim-leader-guide'
+Plug 'airblade/vim-gitgutter'
+Plug 'kana/vim-tabpagecd'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'mileszs/ack.vim'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'cohama/lexima.vim'
+Plug 'w0rp/ale'
+Plug 'editorconfig/editorconfig-vim'
+" fish
+Plug 'dag/vim-fish', { 'for': 'fish' }
+" toml
+Plug 'cespare/vim-toml', { 'for': 'toml' }
+" Markdown
+Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
+" Ruby
+" Need fastri, neovim, rcodetools gems
+Plug 'uplus/deoplete-solargraph', { 'for': 'ruby' }
+" Elixir
+Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+" Go
+Plug 'fatih/vim-go', { 'for': 'go' }
+Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
+" Rust
+Plug 'rust-lang/rust.vim', { 'for': 'rust' }
+" javascript
+"" ES6
+" Vue.js
+Plug 'posva/vim-vue', { 'for': 'vue' }
+call plug#end()
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> dein
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Required:
-let s:dein_dir = expand('~/.cache/dein')
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
-if dein#load_state(s:dein_dir)
-	call dein#begin(s:dein_dir)
-	let s:toml_dir = expand('~/.config/nvim')
-	call dein#load_toml(s:toml_dir . '/dein.toml', {'lazy': 0})
-	call dein#load_toml(s:toml_dir . '/dein_lazy.toml', {'lazy': 1})
-	call dein#add('autozimu/LanguageClient-neovim', {
-	\ 'rev': 'next',
-	\ 'build': 'bash install.sh',
-	\ })
-	call dein#end()
-	call dein#save_state()
-endif
-
-if dein#check_install()
-  call dein#install()
-endif
+" " Required:
+" let s:dein_dir = expand('~/.cache/dein')
+" let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+" set runtimepath+=~/.cache/dein/repos/github.com/Shougo/dein.vim
+" if dein#load_state(s:dein_dir)
+" 	call dein#begin(s:dein_dir)
+" 	let s:toml_dir = expand('~/.config/nvim')
+" 	call dein#load_toml(s:toml_dir . '/dein.toml', {'lazy': 0})
+" 	call dein#load_toml(s:toml_dir . '/dein_lazy.toml', {'lazy': 1})
+" 	call dein#add('autozimu/LanguageClient-neovim', {
+" 	\ 'rev': 'next',
+" 	\ 'build': 'bash install.sh',
+" 	\ })
+" 	call dein#end()
+" 	call dein#save_state()
+" endif
+" 
+" if dein#check_install()
+"   call dein#install()
+" endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -230,6 +278,7 @@ endif
 "==> Plugin
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "===> deoplete
+let g:deoplete#enable_at_startup = 1
 let g:deoplete#auto_complete_delay = 1
 let g:deoplete#auto_complete_start_length = 2
 let g:deoplete#max_list = 200
@@ -288,6 +337,9 @@ let g:leaderGuide_run_map_on_popup = 1
 let g:deoplete#enable_smart_case = 1
 let b:deoplete_disable_auto_complete=1 
 let g:deoplete_disable_auto_complete=1
+" go
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
 
 "===> indentLine
 let g:indentLine_setColors = 0
