@@ -40,3 +40,11 @@ end
 if test -d $HOME/.cargo
     set -x PATH $HOME/.cargo/bin $PATH
 end
+
+# Qt
+set -x QT_HOMEBREW true
+
+# Kubectl
+set -x KUBECONFIG_DEFAULT $HOME/.kube/config 
+set -x KUBECONFIG $HOME/.kube/config 
+set -x AWS_PROFILE beluga3

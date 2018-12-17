@@ -11,6 +11,7 @@ if status --is-login
     source $HOME/.config/fish/user_functions.fish
     source $HOME/.config/fish/aliases.fish
 
+
     # 環境依存設定読み込み
     if test -f $HOME/local.fish
         source $HOME/local.fish	
@@ -23,4 +24,6 @@ if status --is-login
         fisher
     end
 
+    # NixOS
+    fenv . $HOME/.nix-profile/etc/profile.d/nix.sh
 end

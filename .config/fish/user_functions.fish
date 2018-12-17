@@ -24,6 +24,11 @@ function re -d "Re-login current shell"
     exec fish --login
 end
 
+# kubernetes
+function default_kube -d "Use default kubeconfig"
+    set -x KUBECONFIG $KUBECONFIG_DEFAULT
+end
+
 # git get branches
 function get_git_branches
     git branch -vv \
