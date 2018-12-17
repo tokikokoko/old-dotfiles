@@ -9,45 +9,60 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'Shougo/dein.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'roxma/vim-hug-neovim-rpc'
-Plug 'roxma/nvim-yarp'
-Plug 'jonathanfilip/vim-lucius'
+" color scheme
+Plug 'srcery-colors/srcery-vim'
 Plug 'jacoborus/tender.vim'
+Plug 'kaicataldo/material.vim'
+" General
 Plug 'itchyny/lightline.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'Shougo/neomru.vim'
-Plug 'wsdjeg/FlyGrep.vim'
-Plug 'hecal3/vim-leader-guide'
-Plug 'airblade/vim-gitgutter'
 Plug 'kana/vim-tabpagecd'
-Plug 'terryma/vim-multiple-cursors'
+Plug 'itchyny/vim-cursorword'
 Plug 'mileszs/ack.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'cohama/lexima.vim'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'
+" LSP
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+" completion framework
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 " fish
 Plug 'dag/vim-fish', { 'for': 'fish' }
 " toml
 Plug 'cespare/vim-toml', { 'for': 'toml' }
+" JSON
+Plug 'elzr/vim-json', { 'for': 'json' }
+" CSV
+Plug 'mechatroner/rainbow_csv', { 'for': 'csv' }
 " Markdown
 Plug 'plasticboy/vim-markdown', { 'for': 'markdown' }
 " Ruby
 " Need fastri, neovim, rcodetools gems
-Plug 'uplus/deoplete-solargraph', { 'for': 'ruby' }
 " Elixir
 Plug 'elixir-editors/vim-elixir', { 'for': 'elixir' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 " Go
-Plug 'fatih/vim-go', { 'for': 'go' }
-Plug 'zchee/deoplete-go', { 'do': 'make', 'for': 'go' }
+" Plug 'fatih/vim-go', { 'for': 'go' }
 " Rust
 Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 " javascript
 "" ES6
 " Vue.js
 Plug 'posva/vim-vue', { 'for': 'vue' }
+" Typescript
+Plug 'leafgarland/typescript-vim'
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -76,82 +91,85 @@ call plug#end()
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" jq
+command! -nargs=? Jq call s:Jq(<f-args>)
+function! s:Jq(...)
+	if 0 == a:0
+		let l:arg = "."
+	else
+		let l:arg = a:1
+	endif
+	execute "%! jq \"" . l:arg . "\""
+endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> keymap
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "===> Space Key
-let mapleader = "\<Space>"
-" Leader Dict
-let g:lmap =  {}
-" a
-let g:lmap.a = { 'name': 'Application' }
-" b
-let g:lmap.b = { 'name': 'Buffer' }
-" g
-let g:lmap.g = { 'name': 'Grep' }
-" f
-let g:lmap.f = { 'name': 'Frequentry' }
-let g:lmap.f.e = { 'name': 'Settings' }
-" p
-let g:lmap.p = { 'name': 'Project' }
-" q
-let g:lmap.q = { 'name': 'Quit' }
-" t
-let g:lmap.t = { 'name': 'Tab' }
-" w
-let g:lmap.w = { 'name': 'Window' }
+let mapleader="\<Space>"
 
 "===> LeaderKey maps
+"====> Command mode
+nnoremap <Leader><Space> :
+nnoremap <Leader>; :Commands<CR>
+
 "====> Application
-noremap <Leader>an :Explore
-let g:lmap.a.n = [':Explore', 'netrw']
-noremap <Leader>at :terminal
-let g:lmap.a.t = [':terminal', 'terminal']
+nnoremap <Leader>an :Explore<CR>
+nnoremap <Leader>at :terminal<CR>
+
+"====> Buffer
+nnoremap <Leader>bb :Buffers<CR>
+
 "====> Tabs
-noremap <Leader>tn :tabnew
-let g:lmap.t.c = [':tabnew', 'create']
-noremap <Leader>tc :tabclose
-let g:lmap.t.d = [':tabclose', 'close']
-noremap <Leader>tn :tabn
-let g:lmap.t.n = [':tabn', 'next']
-noremap <Leader>tp :tabp
-let g:lmap.t.p = [':tabp', 'previous']
+nnoremap <Leader>tc :tabnew<CR>
+nnoremap <Leader>td :tabclose<CR>
+nnoremap <Leader>tn :tabn<CR>
+nnoremap <Leader>tp :tabp<CR>
 
 "====> Frequentry
 " No highlight
-noremap <Leader>fh :noh
-let g:lmap.f.h = [':noh', 'No highlight']
+nnoremap <Leader>fh :noh<CR>
 " Open .vimrc
-noremap <Leader>fed :e ~/.config/nvim/init.vim
-let g:lmap.f.e.d = [':e ~/.config/nvim/init.vim', 'Open .vimrc']
+nnoremap <Leader>fed :e ~/.config/nvim/init.vim<CR>
 " Reload setting
-noremap <Leader>feR source ~/.config/nvim/init.vim
-let g:lmap.f.e.R = ['source ~/.config/nvim/init.vim', 'Reload settings']
+nnoremap <Leader>feR :source ~/.config/nvim/init.vim<CR>
 " Update buffer
-noremap <Leader>fer :e!
-let g:lmap.f.e.r = [':e!', 'Update buffer']
+nnoremap <Leader>fer :checkt<CR>
+
+"====> Grep
+" Ag
+nnoremap <Leader>ga :Ag<CR>
+" Ack
+nnoremap <Leader>gg :<C-u>Ack<Space>
+" FZF
+nnoremap <Leader>gb :BLines<CR>
+" RIPGREP
+nnoremap <Leader>gr :Rg<CR>
+" History
+nnoremap <Leader>gh :History:<CR>
+
+"====> Language
+" LSP Menu
+nnoremap <Leader>lm :call LanguageClient_contextMenu()<CR>
+nnoremap <Leader>ld :call LanguageClient#textDocument_definition()<CR>
+nnoremap <Leader>ll :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <Leader>lr :call :call LanguageClient#textDocument_rename()<CR>
+nnoremap <Leader>lx :call LanguageClient#textDocument_references()<CR>
+
+"====> Projectile
+nnoremap <Leader>pf :Files<CR>
 
 "====> Quit
-noremap <Leader>qq :q
-let g:lmap.q.q = [':q', 'Quit']
-noremap <Leader>qq :a
-let g:lmap.q.a = [':qa', 'Quit all']
+nnoremap <Leader>qq :q<CR>
+nnoremap <Leader>qq :qa<CR>
 
 "====> window
-noremap <Leader>wd :close
-let g:lmap.w.d = [':close', 'close']
-noremap <Leader>wv :vs
-let g:lmap.w.v = [':vs', 'vertical split']
-noremap <Leader>ws :split
-let g:lmap.w.s = [':split', 'horizontal split']
-noremap <Leader>wh :wincmd h
-let g:lmap.w.h = [':wincmd h', 'move left']
-noremap <Leader>wj :wincmd j
-let g:lmap.w.j = [':wincmd j', 'move down']
-noremap <Leader>wk :wincmd k
-let g:lmap.w.k = [':wincmd k', 'move up']
-noremap <Leader>wl :wincmd l
-let g:lmap.w.l = [':wincmd l', 'move left']
+nnoremap <Leader>wd :close<CR>
+nnoremap <Leader>wv :vs<CR>
+nnoremap <Leader>ws :split<CR>
+nnoremap <Leader>wh :wincmd h<CR>
+nnoremap <Leader>wj :wincmd j<CR>
+nnoremap <Leader>wk :wincmd k<CR>
+nnoremap <Leader>wl :wincmd l<CR>
 
 "===> Common maps
 " mappings when IM is Japanese
@@ -235,21 +253,23 @@ set inccommand=split
 autocmd QuickFixCmdPost *grep* cwindow
 " timeout
 set timeoutlen=10
+" add filetype
+au BufNewFile,BufRead *.csv setf csv
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Appearance
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " theme
-colorscheme tender
-" colorscheme PaperColor
-autocmd ColorScheme * highlight LineNr ctermfg=22 guifg=#ffe793
+set background=dark
+colorscheme material
+let g:material_theme_style = 'dark'
+" autocmd ColorScheme * highlight LineNr ctermfg=22 guifg=#ffe793
 set termguicolors
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set t_Co=256
-set background=dark
-
-" let g:pencil_higher_contrast_ui = 1
 " 行番号を表示
 set number
+" 編集行をハイライト
+set cursorline
 " 行末の1文字先までカーソル移動できるように
 set virtualedit=onemore
 " インデントはスマートインデント
@@ -260,46 +280,46 @@ set showmatch
 set laststatus=2
 " コマンドラインの補完
 set wildmode=list:longest
+" Leaderキーのタイムアウト設定
+set notimeout
 " シンタックスハイライトの最大行数
 set synmaxcol=300
 " 全角スペースのハイライト
 function! ZenkakuSpace()
-    highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
+	highlight ZenkakuSpace cterm=underline ctermfg=lightblue guibg=darkgray
 endfunction
 if has('syntax')
-    augroup ZenkakuSpace
-        autocmd!
-        autocmd ColorScheme * call ZenkakuSpace()
-        autocmd VimEnter,WinEnter,BufRead * let w:m1=matchadd('ZenkakuSpace', '　')
-    augroup END
-    call ZenkakuSpace()
+	augroup ZenkakuSpace
+		autocmd!
+		autocmd ColorScheme * call ZenkakuSpace()
+		autocmd VimEnter,WinEnter,BufRead * let w:m1=matchadd('ZenkakuSpace', '　')
+	augroup END
+	call ZenkakuSpace()
 endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Plugin
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"===> deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#auto_complete_delay = 1
-let g:deoplete#auto_complete_start_length = 2
-let g:deoplete#max_list = 200
-let g:deoplete#enable_smart_case = 1
-
+"===> ncm
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+" IMPORTANTE: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+inoremap <c-c> <ESC>
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "===> lightline
 let g:lightline = {
-      \ 'colorscheme': 'tender',
-      \	'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ },
-      \ }
-"===> Minimap
-let g:minimap_show='<leader>ms'
-let g:minimap_update='<leader>mu'
-let g:minimap_close='<leader>gc'
-let g:minimap_toggle='<leader>gt'
+	\ 'colorscheme': 'material_vim',
+	\ 'active': {
+	\   'left': [ [ 'mode', 'paste' ],
+	\             [ 'gitbranch', 'readonly', 'filename' ] ],
+	\ },
+	\ 'component_function': {
+	\   'gitbranch': 'fugitive#head'
+	\ },
+	\ }
 
 "===> ale
 let g:ale_sign_column_always = 1
@@ -307,31 +327,16 @@ let g:ale_set_loclist = 0
 let g:ale_set_quickfix = 0
 let g:ale_open_list = 1
 let g:ale_linters = {
-	\ 'ruby': ['rubocop'],
-	\ 'sql': ['sqlint'],
-\}
+			\ 'ruby': ['rubocop'],
+			\ 'sql': ['sqlint'],
+			\}
 "===> ack
 let g:ackprg = 'ag --nogroup --nocolor --column --vimgrep'
+" nnoremap ;      :<C-u>Ack<Space>
 "===> fzf
 " Default fzf layout
 " - down / up / left / right
-let g:fzf_layout = { 'down': '~40%' }
-"====> keymap
-noremap <Leader>pf :Files
-let g:lmap.p.f = [':Files', 'Project Files']
-noremap <Leader>bb :Buffers
-let g:lmap.b.b = [':Buffers', 'List']
-noremap <Leader>gb :BLines
-let g:lmap.g.b = [':BLines', 'Current Buffer']
-
-"===> vim-leader-guide
-call leaderGuide#register_prefix_descriptions("<Space>", "g:lmap")
-nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
-let g:leaderGuide_hspace = 4
-let g:leaderGuide_vertical = 0
-let g:leaderGuide_sort_horizontal = 1
-let g:leaderGuide_run_map_on_popup = 1
+let g:fzf_layout = { 'down': '~25%' }
 
 "===> deoplete
 let g:deoplete#enable_smart_case = 1
@@ -343,11 +348,21 @@ let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const
 
 "===> indentLine
 let g:indentLine_setColors = 0
-let g:indentLine_color_term = 239
+let g:indentLine_color_term = 220
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Language configs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===> LSP
+let g:LanguageClient_serverCommands = {
+	\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+	\ 'go': ['go-langserver', '-gocodecompletion'],
+	\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+	\ 'typescript': ['javascript-typescript-stdio'],
+	\ 'python': ['/usr/local/bin/pyls'],
+	\ 'ruby': ['solargraph', 'stdio'],
+	\ }
+let g:LanguageClient_autoStart = 1
 "===> HTML
 autocmd FileType html setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
 "===> Javascript
@@ -370,6 +385,8 @@ let g:racer_cmd = '$HOME/.cargo/bin/racer'
 let g:racer_experimental_completer = 1
 let g:rustfmt_autosave = 1
 let g:rustfmt_command = '$HOME/.cargo/bin/rustfmt'
+"===> YAML
+autocmd FileType yaml setl tabstop=2 expandtab shiftwidth=2 softtabstop=2
 "===> fish
 autocmd FileType fish setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 " Set up :make to use fish for syntax checking.
@@ -378,3 +395,8 @@ autocmd FileType fish setl tabstop=8 expandtab shiftwidth=4 softtabstop=4
 setlocal textwidth=79
 "===> Markdown
 autocmd FileType markdown setl tabstop=2 expandtab shiftwidth=4 softtabstop=4
+"===> Makefile
+let _curfile=expand("%:r")
+if _curfile == 'Makefile'
+  set noexpandtab
+endif

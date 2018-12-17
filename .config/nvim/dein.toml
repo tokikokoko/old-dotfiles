@@ -29,6 +29,8 @@ repo = 'Shougo/neomru.vim'
 repo = 'wsdjeg/FlyGrep.vim'
 [[plugins]]
 repo = 'hecal3/vim-leader-guide'
+[[plugins]]
+repo = 'itchyny/vim-cursorword'
 
 # git
 [[plugins]]

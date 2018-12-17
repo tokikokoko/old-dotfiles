@@ -11,11 +11,11 @@ const activate = (oni) => {
 module.exports = {
     activate,
     // change configuration values here:
-    "ui.colorscheme": "solarized8_light",
-    "sidebar.enabled": false,
+    "ui.colorscheme": "onedark",
+    "sidebar.enabled": true,
     "oni.useDefaultConfig": true,
     "oni.loadInitVim": true,
-    "editor.fontSize": "13px",
+    "editor.fontSize": "14px",
     "editor.fontFamily": "Ricty Diminished For Powerline",
     "editor.completions.enabled": true
 }
