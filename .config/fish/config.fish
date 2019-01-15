@@ -23,7 +23,4 @@ if status --is-login
         curl -sLo ~/.config/fish/functions/fisher.fish --create-dirs git.io/fisher
         fisher
     end
-
-    # NixOS
-    fenv . $HOME/.nix-profile/etc/profile.d/nix.sh
 end

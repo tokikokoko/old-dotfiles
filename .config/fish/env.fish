@@ -1,11 +1,19 @@
 # PATH
 set -x PATH /usr/local/bin $PATH
 
+# ARCH
+# SSH
+set -x SSH_AUTH_SOCK 0 
+
 # general
 set DOT $HOME/dotfiles
 set FISH_PATH (which fish)
-set -x TERM screen-256color
+set -x TERM rxvt-unicode-256color
 set -x EDITOR nvim
+
+# fcitx
+set -x GTK_IM_MODULE fcitx
+set -x XMODIFIERS "@im=fcitx"
 
 # fzf
 set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*"'
@@ -21,6 +29,11 @@ end
 # yarn
 if test -d $HOME/.yarn
     set -x PATH $HOME/.yarn/bin $PATH
+end
+
+# ruby
+if test -d $HOME/.gem/ruby/2.5.0/bin
+    set -x PATH $HOME/.gem/ruby/2.5.0/bin $PATH
 end
 
 # go-lang

@@ -9,6 +9,10 @@
 #     echo -n (set_color cyan)(prompt_pwd) (set_color red)'❯'(set_color yellow)'❯'(set_color green)'❯ '
 # end
 
+function fish_greeting
+    cowthink (fortune)
+end
+
 # emacs-daemon
 function restart_server -d "Restart emacsclient"
     emacsclient -e '(kill-emacs)'
@@ -22,6 +26,15 @@ end
 # shell
 function re -d "Re-login current shell"
     exec fish --login
+end
+
+# tmux
+function ta -d "Attach tmux session"
+    tmux a -t $argv[1]
+end
+
+function tc -d "Create tmux session"
+    tmux new -s $argv[1]
 end
 
 # kubernetes
@@ -79,4 +92,9 @@ end
 function stop_container
     dk_container_list \
     | xargs docker container stop
+end
+
+# pbcopy
+function pbcopy
+    xclip -selection c
 end
