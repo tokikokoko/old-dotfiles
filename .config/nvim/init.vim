@@ -20,9 +20,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'Shougo/neomru.vim'
 Plug 'kana/vim-tabpagecd'
-Plug 'itchyny/vim-cursorword'
 Plug 'mileszs/ack.vim'
 Plug 'cohama/lexima.vim'
+Plug 'tpope/vim-surround'
 Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 " Git
@@ -209,7 +209,7 @@ set hidden
 " 入力中のコマンドをステータスに表示する
 set showcmd
 " vimの無名レジスタとOSクリップボードの連携
-set clipboard=unnamed
+set clipboard+=unnamedplus
 " 折り畳まない
 set foldmethod=syntax
 let perl_fold=1
@@ -269,7 +269,7 @@ set t_Co=256
 " 行番号を表示
 set number
 " 編集行をハイライト
-set cursorline
+" set cursorline
 " 行末の1文字先までカーソル移動できるように
 set virtualedit=onemore
 " インデントはスマートインデント
