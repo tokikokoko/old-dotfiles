@@ -26,52 +26,88 @@
 ;; cl-lib
 (use-package cl-lib)
 
+;;;-> straight.el
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 01.Package list
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;;-> packagelists
-(defvar my/favorite-packages
-  '(
-    ;; package-utils
-    package-utils
-    ;; theme
-    zenburn-theme dracula-theme spacemacs-theme
-    color-theme-sanityinc-tomorrow
-    ;; general
-    multiple-cursors indent-guide shackle
-    projectile rainbow-delimiters ripgrep helm-ag
-    spaceline linum-relative editorconfig hydra
-    visual-regexp elscreen 
-    ;; git
-    magit
-    ;; company
-    company
-    ;; ivy-mode
-    swiper ivy-rich counsel
-    counsel-projectile
-    ;; org
-    ox-pandoc org-bullets
-    ;; flycheck
-    flycheck
-    ;; fish-shell-mode
-    fish-mode
-    ;; docker-file
-    dockerfile-mode
-    ;; elixir
-    elixir-mode alchemist flycheck-elixir
-    ;; go
-    go-mode
-    ;; ruby
-    ruby-electric
-    ;; python
-    python-mode jedi
-    ;; lisp
-    slime
-    ;; markdown
-    mkdown
-    ;; web
-    web-mode
-    ))
+;;-> straight.el
+;; package-utils
+(straight-use-package 'package-utils)
+;; theme
+(straight-use-package 'zenburn-theme)
+(straight-use-package 'dracula-theme)
+(straight-use-package 'color-theme-sanityinc-tomorrow)
+(straight-use-package
+ '(emacs-material-theme :type git :host github :repo "cpaulik/emacs-material-theme"))
+;; general
+(straight-use-package 'multiple-cursors)
+(straight-use-package 'indent-guide)
+(straight-use-package 'shackle)
+(straight-use-package 'projectile)
+(straight-use-package 'rainbow-delimiters)
+(straight-use-package 'ripgrep)
+(straight-use-package 'helm-ag)
+(straight-use-package 'spaceline)
+(straight-use-package 'linum-relative)
+(straight-use-package 'editorconfig)
+(straight-use-package 'hydra)
+(straight-use-package 'visual-regexp)
+(straight-use-package 'elscreen)
+(straight-use-package 'winum)
+;; git
+(straight-use-package 'magit)
+;; company
+(straight-use-package 'company)
+;; ivy-mode
+;; (straight-use-package 'swiper)
+;; (straight-use-package 'ivy-rich)
+;; (straight-use-package 'counsel)
+;; (straight-use-package 'counsel-projectile)
+;; helm
+(straight-use-package 'helm)
+(straight-use-package 'helm-swoop)
+;; org
+(straight-use-package 'ox-pandoc)
+(straight-use-package 'org-bullets)
+;; flycheck
+(straight-use-package 'flycheck)
+;; fish-shell-mode
+(straight-use-package 'fish-mode)
+;; docker-file
+(straight-use-package 'dockerfile-mode)
+;; elixir
+(straight-use-package 'elixir-mode)
+(straight-use-package 'alchemist)
+(straight-use-package 'flycheck-elixir)
+;; go
+(straight-use-package 'go-mode)
+;; ruby
+(straight-use-package 'ruby-electric)
+;; python
+(straight-use-package 'python-mode)
+(straight-use-package 'jedi)
+;; lisp
+(straight-use-package 'slime)
+;; ocaml
+(straight-use-package 'merlin)
+(straight-use-package 'tuareg)
+;; markdown
+(straight-use-package 'mkdown)
+;; web
+(straight-use-package 'web-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 10.Functions
@@ -114,8 +150,7 @@
   (add-to-list 'default-frame-alist '(font . "Source Han Code JP 12"))
   )
 (when (eq system-type 'gnu/linux)
-  (set-default-font "Source Han Code JP 12")
-  (add-to-list 'default-frame-alist '(font . "Source Han Code JP 12"))
+  (set-default-font "Cica 14")
   )
 (set-fontset-font t 'japanese-jisx0208 (font-spec :family "M+ 1mn light"))
 
@@ -136,6 +171,8 @@
 (global-linum-mode t)
 ;; スタートアップページを表示しない
 (setq inhibit-startup-message t)
+;; 1行ずつスクロール
+(setq scroll-conservatively 1)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;-> 22.General settings
@@ -205,7 +242,7 @@
 
 ;;;-> theme
 ;;(load-theme 'sanityinc-tomorrow-day t)
-(load-theme 'leuven t)
+(load-theme 'material t)
 
 ;;;-> spaceline
 (use-package spaceline-config
@@ -213,40 +250,43 @@
   (spaceline-spacemacs-theme))
 
 ;;;-> ivy
-(use-package ivy
-  :bind
-  ("C-s" . 'swiper)
-  ("\C-c \C-r" . 'ivy-resume)
-  ("M-x" . 'counsel-M-x)
-  ("\C-x \C-f" . 'counsel-find-file)
-  ("C-x b" . 'ivy-switch-buffer)
-  ("\C-c g" . 'counsel-git)
-  ("\C-c j" . 'counsel-git-grep)
-  ("\C-c k" . 'counsel-ag)
-  :config
-  (setq ivy-use-virtual-buffers t)
-  (setq enable-recursive-minibuffers t)
-  ;; ivy-rich
-  (use-package ivy-rich
-    :config
-    (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer))
-  )
-
-;; ;;;-> helm
-;; (use-package helm
-;;   :init
-;;   (use-package helm-config
-;;     :init
-;;     (helm-mode t))
+;; (use-package ivy
 ;;   :bind
-;;   ("M-x" . helm-M-x)
-;;   ("\C-x \C-f" . helm-find-files)
-;;   ("C-;" . helm-mini)
-;;   ("M-i" . helm-swoop)
-;;   ("M-I" . helm-swoop-back-to-last-point)
-;;   ("\C-c \M-i" . helm-multi-swoop)
-;;   ("\C-x \M-i" . helm-multi-swoop-all)
-;;   )
+;;   ("C-s" . 'swiper)
+;;   ("\C-c \C-r" . 'ivy-resume)
+;;   ("M-x" . 'counsel-M-x)
+;;   ("\C-x \C-f" . 'counsel-find-file)
+;;   ("C-x b" . 'ivy-switch-buffer)
+;;   ("\C-c g" . 'counsel-git)
+;;   ("\C-c j" . 'counsel-git-grep)
+;;   ("\C-c k" . 'counsel-ag)
+;;   :config
+;;   (setq ivy-use-virtual-buffers t)
+;;   (setq enable-recursive-minibuffers t)
+;;   ;; ivy-rich
+;;   (use-package ivy-rich
+;;     :config
+;;    (ivy-set-display-transformer 'ivy-switch-buffer 'ivy-rich-switch-buffer-transformer))
+;;  )
+
+;;;-> helm
+(use-package helm
+  :init
+  (use-package helm-config
+    :init
+    (helm-mode t))
+  :bind
+  ("M-x" . helm-M-x)
+  ("\C-x \C-f" . helm-find-files)
+  ("C-;" . helm-mini)
+  ("M-i" . helm-swoop)
+  ("M-I" . helm-swoop-back-to-last-point)
+  ("\C-c \M-i" . helm-multi-swoop)
+  ("\C-x \M-i" . helm-multi-swoop-all)
+  ("C-M-o" . helm-occur)
+  :config
+  (setq helm-ag-base-command "rg --vimgrep --no-heading")
+  )
  
 ;;;-> shackle
 (use-package shackle
@@ -269,9 +309,14 @@
   (winum-mode))
 
 ;;;-> projectile
-(counsel-projectile-mode)
-;; (projectile-global-mode)
-;; (setq projectile-completion-system 'helm)
+(use-package projectile
+  :config
+  ;; (counsel-projectile-mode)
+  (projectile-global-mode)
+  (setq projectile-completion-system 'helm)
+  :bind
+  ("C-x p f" . projectile--find-file)
+  )
 
 ;;-> magit
 (use-package magit
@@ -461,7 +506,7 @@
   :if (< emacs-major-version 24)
   :config
   (defalias 'prog-mode 'fundamental-mode)
-  )
+v  )
 ;; インデント数
 (defun my-web-mode-hook ()
   "Hooks for Web mode."
@@ -495,3 +540,10 @@
   (set-face-background 'highlight-indentation-face "#e3e3d3")
   (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
   )
+
+;; merlin-mode
+(push "~/.opam/default/share/emacs/site-lisp" load-path) ; directory containing merlin.el
+(setq merlin-command "~/.opam/default/bin/ocamlmerlin")  ; needed only if ocamlmerlin not already in your PATH
+(autoload 'merlin-mode "merlin" "Merlin mode" t)
+(add-hook 'tuareg-mode-hook 'merlin-mode)
+(add-hook 'caml-mode-hook 'merlin-mode)

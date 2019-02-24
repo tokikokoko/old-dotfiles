@@ -6,7 +6,6 @@ set nocompatible
 "==> vim-plug
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.local/share/nvim/plugged')
-Plug 'Shougo/dein.vim'
 Plug 'Shougo/vimproc.vim'
 Plug 'roxma/vim-hug-neovim-rpc'
 " color scheme
@@ -28,16 +27,15 @@ Plug 'editorconfig/editorconfig-vim'
 " Git
 Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
 " LSP
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
 " completion framework
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ncm2/ncm2'
-Plug 'roxma/nvim-yarp'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'ncm2/ncm2'
+" Plug 'roxma/nvim-yarp'
 " fish
 Plug 'dag/vim-fish', { 'for': 'fish' }
 " toml
@@ -63,6 +61,11 @@ Plug 'rust-lang/rust.vim', { 'for': 'rust' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 " Typescript
 Plug 'leafgarland/typescript-vim'
+" OCaml
+if executable('opam')
+	Plug '$HOME/.opam/default/share/merlin/vim', { 'for': 'ocaml' }
+	Plug 'copy/deoplete-ocaml', { 'for': 'ocaml' }
+end
 call plug#end()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -151,6 +154,7 @@ nnoremap <Leader>gh :History:<CR>
 " LSP Menu
 nnoremap <Leader>lm :call LanguageClient_contextMenu()<CR>
 nnoremap <Leader>ld :call LanguageClient#textDocument_definition()<CR>
+" nnoremap <Leader>ld <C-]>
 nnoremap <Leader>ll :call LanguageClient#textDocument_documentSymbol()<CR>
 nnoremap <Leader>lr :call :call LanguageClient#textDocument_rename()<CR>
 nnoremap <Leader>lx :call LanguageClient#textDocument_references()<CR>
@@ -269,7 +273,7 @@ set t_Co=256
 " 行番号を表示
 set number
 " 編集行をハイライト
-" set cursorline
+set cursorline
 " 行末の1文字先までカーソル移動できるように
 set virtualedit=onemore
 " インデントはスマートインデント
@@ -300,15 +304,15 @@ endif
 "==> Plugin
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "===> ncm
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
-" IMPORTANTE: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
-imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
-imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
-inoremap <c-c> <ESC>
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" " enable ncm2 for all buffers
+" autocmd BufEnter * call ncm2#enable_for_buffer()
+" " IMPORTANTE: :help Ncm2PopupOpen for more information
+" set completeopt=noinsert,menuone,noselect
+" imap <expr> <CR>  (pumvisible() ?  "\<c-y>\<Plug>(expand_or_nl)" : "\<CR>")
+" imap <expr> <Plug>(expand_or_nl) (cm#completed_is_snippet() ? "\<C-U>":"\<CR>")
+" inoremap <c-c> <ESC>
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+" inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 "===> lightline
 let g:lightline = {
 	\ 'colorscheme': 'material_vim',
@@ -329,6 +333,7 @@ let g:ale_open_list = 1
 let g:ale_linters = {
 			\ 'ruby': ['rubocop'],
 			\ 'sql': ['sqlint'],
+			\ 'ocaml': ['merlin']
 			\}
 "===> ack
 let g:ackprg = 'ag --nogroup --nocolor --column --vimgrep'
@@ -339,12 +344,15 @@ let g:ackprg = 'ag --nogroup --nocolor --column --vimgrep'
 let g:fzf_layout = { 'down': '~25%' }
 
 "===> deoplete
+let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
-let b:deoplete_disable_auto_complete=1 
-let g:deoplete_disable_auto_complete=1
-" go
-let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
-let g:deoplete#sources#go#sort_class = ['package', 'func', 'type', 'var', 'const']
+" let b:deoplete_disable_auto_complete=1 
+let g:deoplete#complete_method = "complete"
+" no delay before completion
+let g:deoplete#auto_complete_delay = 0
+" other completion sources suggested to disable
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources.ocaml = ['buffer', 'around', 'member', 'tag']
 
 "===> indentLine
 let g:indentLine_setColors = 0
@@ -354,15 +362,15 @@ let g:indentLine_color_term = 220
 "==> Language configs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "===> LSP
+let g:LanguageClient_autoStart = 1
 let g:LanguageClient_serverCommands = {
 	\ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
 	\ 'go': ['go-langserver', '-gocodecompletion'],
 	\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
 	\ 'typescript': ['javascript-typescript-stdio'],
 	\ 'python': ['/usr/local/bin/pyls'],
-	\ 'ruby': ['solargraph', 'stdio'],
+	\ 'ruby': ['~/.gem/ruby/2.5.0/bin/solargraph', 'stdio'],
 	\ }
-let g:LanguageClient_autoStart = 1
 "===> HTML
 autocmd FileType html setl tabstop=4 expandtab shiftwidth=2 softtabstop=2
 "===> Javascript

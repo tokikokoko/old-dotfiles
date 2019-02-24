@@ -1,6 +1,7 @@
 # PATH
 set -x PATH /usr/local/bin $PATH
-
+set -x PATH ~/.local/bin $PATH
+set -x PATH /home/linuxbrew/.linuxbrew/bin $PATH
 # ARCH
 # SSH
 set -x SSH_AUTH_SOCK 0 
@@ -32,9 +33,10 @@ if test -d $HOME/.yarn
 end
 
 # ruby
-if test -d $HOME/.gem/ruby/2.5.0/bin
-    set -x PATH $HOME/.gem/ruby/2.5.0/bin $PATH
-end
+# set -x RBENVVER (rbenv global)
+# if test -d $HOME/.rbenv/versions/$RBENVVER/lib/ruby/gems/2.5.0
+#     set -x PATH $HOME/.gem/ruby/2.5.0/bin $PATH
+# end
 
 # go-lang
 if test -d $HOME/Workspace/go

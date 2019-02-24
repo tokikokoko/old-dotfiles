@@ -1,4 +1,7 @@
-### zplug ###
+####################
+### zplug
+####################
+
 ## zplug install command
 # git clone https://github.com/zplug/zplug $ZPLUG_HOME
 # init
@@ -14,63 +17,67 @@ zplug 'mollifier/cd-gitroot'
 # load plugins
 zplug load --verbose
 
-### DOTFILES ###
+
+####################
+### ENV 
+####################
+
+# PATH
+path=(/usr/local/bin(N-/) $path)
+path=($HOME/.local/bin(N-/) $path)
+path=(/home/linuxbrew/.linuxbrew/bin(N-/) $path)
+path=($HOME/.yarn/bin(N-/) $path)
+path=($HOME/.rbenv/bin(N-/) $path)
+path=($HOME/.rbenv/shims(N-/) $path)
+path=($HOME/.cargo/bin(N-/) $path)
+path=($HOME/.go/bin(N-/) $path)
+
+## golang
+GOPATH=($HOME/Workspace/go)
+
+## node
+if [ -f ./node_modules/.bin ]; then
+	export PATH=./node_modules/.bin:$PATH
+fi
+
+## SSH
+export SSH_AUTH_SOCK=0 
+
+## LESS
+export LESS='-g -i -M -R -S -W -z-4 -x4'
+
+## DOTFILES
 DOT=~/dotfiles
 
-### TERM ###
+## TERM
 TERM=xterm-256color
 
-### shell history ###
+## shell history
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=10000
+SAVEHIST=10000
 
-### prompt ###
+## kubectl
+export KUBECONFIG_DEFAULT=$HOME/.kube/config 
+export KUBECONFIG=$HOME/.kube/config 
+export AWS_PROFILE=beluga3
+
+## google-cloud-sdk
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/keita/google-cloud-sdk/path.zsh.inc' ]; then
+	. $HOME/google-cloud-sdk/path.zsh.inc
+	. $HOME/google-cloud-sdk/completion.zsh.inc
+fi
+
+## Git Editor
+export EDITOR=nvim
+
+## prompt
 setopt prompt_subst
 PROMPT="%F{blue}${USER}@${HOST} %F{yellow}[%~] %(?.$fg[green].$fg[red])(%?)%F{$reset_color}
 %F{cyan}> %F{white}"
 
-### localsettings ###
-source $HOME/.localsettings
-
-### tmux ###
-if [[ ! -n $TMUX && $- == *l* ]]; then
-  # get the IDs
-  ID="`tmux list-sessions`"
-  if [[ -z "$ID" ]]; then
-    tmux new-session
-  fi
-  create_new_session="Create New Session"
-  ID="$ID\n${create_new_session}:"
-  ID="`echo $ID | $PERCOL | cut -d: -f1`"
-  if [[ "$ID" = "${create_new_session}" ]]; then
-    tmux new-session
-  elif [[ -n "$ID" ]]; then
-    tmux attach-session -t "$ID"
-  else
-    :  # Start terminal normally
-  fi
-fi
-
-### golang ###
-path=(/usr/local/go/bin(N-/) $path)
-path=($HOME/.go/bin(N-/) $path)
-export GOPATH=$HOME/.go
-
-### node ###
-export PATH=$HOME/.nodebrew/current/bin:$PATH
-
-
-### virtualenv ###
-# 環境変数VIRTUALENVRAPPER_PYTHONに使用するPythonのパスを記述
-# virtualenvwrapper.shのパスを調べ最後に実行する
-# 以下設定例 
-# VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
-# export WORKON_HOME=~/.virtualenvs
-# source /usr/local/bin/virtualenvwrapper.sh
-source $HOME/.virtualenvsetting
-
-### compinit ###
+## compinit
 autoload -U compinit
 compinit
 zstyle ':completion:"default' menu select=2
@@ -86,25 +93,32 @@ zstyle ':completion:*' list-separator '-->'
 zstyle ':completion:*:manuals' separate-sections true
 
 ### alias ###
-alias la='ls -a'
-alias ll='ls -l'
-alias lal='ls -al'
+alias la='exa -a'
+alias ll='exa -l'
+alias lal='exa -al'
 alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 alias diff='colordiff'
 
-### vim ###
+## vim
 # vim path
 alias vim='nvim'
 
-### emacs ###
+## emacs
 # emacs functions
 # alias
 alias em='emacsclient -nw'
 
-### fzf ###
+## fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_LEGACY_KEYBINDINGS=1
+export FZF_FIND_FILE_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_DEFAULT_OPTS='--color=dark --ansi'
+
+## keybind
+bindkey -e
 
 ### functions ###
 # emacs restart-server
@@ -133,6 +147,7 @@ function testfunc(){
 	return 125
 }
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# rbenv configuration
+test -r $HOME/.rbenv && eval "$(rbenv init -)" > /dev/null 2> /dev/null || true
+# opam configuration
+test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true

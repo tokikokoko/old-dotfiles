@@ -10,7 +10,6 @@
 # end
 
 function fish_greeting
-    cowthink (fortune)
 end
 
 # emacs-daemon
@@ -35,6 +34,11 @@ end
 
 function tc -d "Create tmux session"
     tmux new -s $argv[1]
+end
+
+# ocaml
+function ocaml
+    rlwrap ocaml $argv
 end
 
 # kubernetes
