@@ -15,3 +15,6 @@ git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-b
 
 ## opam
 sh <(curl -sL https://raw.githubusercontent.com/ocaml/opam/master/shell/install.sh)
+
+# nodebrew
+curl -L git.io/nodebrew | perl - setup

@@ -9,7 +9,7 @@ set -x SSH_AUTH_SOCK 0
 # general
 set DOT $HOME/dotfiles
 set FISH_PATH (which fish)
-set -x TERM rxvt-unicode-256color
+set -x TERM xterm-256color
 set -x EDITOR nvim
 
 # fcitx
@@ -18,11 +18,15 @@ set -x XMODIFIERS "@im=fcitx"
 
 # fzf
 set -x FZF_DEFAULT_COMMAND 'rg --files --hidden --follow --glob "!.git/*"'
-set -x FZF_LEGACY_KEYBINDINGS 1
+set -x FZF_LEGACY_KEYBINDINGS 0
 set -x FZF_FIND_FILE_COMMAND $FZF_DEFAULT_COMMAND
 set -x FZF_DEFAULT_OPTS '--color=dark --ansi'
 
 # node
+if test -d $HOME/.nodebrew/current/bin
+    set -x PATH $HOME/.nodebrew/current/bin $PATH
+end
+
 if test -d ./node_modules/.bin
     set -x PATH ./node_modules/.bin $PATH
 end
@@ -33,10 +37,13 @@ if test -d $HOME/.yarn
 end
 
 # ruby
-# set -x RBENVVER (rbenv global)
-# if test -d $HOME/.rbenv/versions/$RBENVVER/lib/ruby/gems/2.5.0
-#     set -x PATH $HOME/.gem/ruby/2.5.0/bin $PATH
-# end
+if test -r $HOME/.rbenv
+    set -x PATH $HOME/.rbenv/bin $PATH
+    rbenv init - | source > /dev/null 2> /dev/null || true
+end
+
+# opam configuration
+test -r $HOME/.opam/opam-init/init.fish && source $HOME/.opam/opam-init/init.fish > /dev/null 2> /dev/null || true
 
 # go-lang
 if test -d $HOME/Workspace/go

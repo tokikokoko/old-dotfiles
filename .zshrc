@@ -30,10 +30,29 @@ path=($HOME/.yarn/bin(N-/) $path)
 path=($HOME/.rbenv/bin(N-/) $path)
 path=($HOME/.rbenv/shims(N-/) $path)
 path=($HOME/.cargo/bin(N-/) $path)
-path=($HOME/.go/bin(N-/) $path)
 
 ## golang
-GOPATH=($HOME/Workspace/go)
+export GOENV_ROOT="$HOME/.goenv"
+path=($GOENV_ROOT/bin(N-/) $path)
+path=($GOENV_ROOT/shims(N-/) $path)
+export GOPATH=($HOME/Workspace/go)
+path=($HOME/Workspace/go/bin(N-/) $path)
+test -r $HOME/.goenv/libexec/../completions/goenv.zsh && source $HOME/.goenv/libexec/../completions/goenv.zsh > /dev/null 2> /dev/null || true
+command goenv rehash 2>/dev/null
+goenv() {
+  local command
+  command="$1"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  rehash|shell)
+    eval "$(goenv "sh-$command" "$@")";;
+  *)
+    command goenv "$command" "$@";;
+  esac
+}
 
 ## node
 if [ -f ./node_modules/.bin ]; then
@@ -68,6 +87,10 @@ if [ -f '/home/keita/google-cloud-sdk/path.zsh.inc' ]; then
 	. $HOME/google-cloud-sdk/path.zsh.inc
 	. $HOME/google-cloud-sdk/completion.zsh.inc
 fi
+## Linux
+export GTK_IM_MODULE=fcitx
+export XMODIFIERS=@im=fcitx
+export QT_IM_MODULE=fcitx
 
 ## Git Editor
 export EDITOR=nvim
@@ -151,3 +174,10 @@ function testfunc(){
 test -r $HOME/.rbenv && eval "$(rbenv init -)" > /dev/null 2> /dev/null || true
 # opam configuration
 test -r $HOME/.opam/opam-init/init.zsh && . $HOME/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+# nvm configuration
+test -r /usr/share/nvm/init-nvm.sh && source /usr/share/nvm/init-nvm.sh > /dev/null 2> /dev/null || true
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/keita/google-cloud-sdk/path.zsh.inc' ]; then . '/home/keita/google-cloud-sdk/path.zsh.inc'; fi
+
+

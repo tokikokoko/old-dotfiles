@@ -259,6 +259,8 @@ autocmd QuickFixCmdPost *grep* cwindow
 set timeoutlen=10
 " add filetype
 au BufNewFile,BufRead *.csv setf csv
+" default shell
+set shell=/usr/bin/fish
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "==> Appearance
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
