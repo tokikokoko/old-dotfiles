@@ -371,7 +371,7 @@ let g:LanguageClient_serverCommands = {
 	\ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
 	\ 'typescript': ['javascript-typescript-stdio'],
 	\ 'python': ['/usr/local/bin/pyls'],
-	\ 'ruby': ['~/.gem/ruby/2.5.0/bin/solargraph', 'stdio'],
+	\ 'ruby': ['~/.rbenv/shims/solargraph', 'stdio'],
 	\ }
 "===> HTML
 autocmd FileType html setl tabstop=4 expandtab shiftwidth=2 softtabstop=2

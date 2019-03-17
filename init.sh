@@ -1,7 +1,6 @@
 #! /bin/bash
 
-mkdir ~/Workspace
-mkdir ~/Workspace/go
+mkdir -p ~/Workspace/go
 
 # goenv
 git clone https://github.com/syndbg/goenv.git ~/.goenv
